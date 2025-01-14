@@ -8,12 +8,12 @@ public class PlayerMovement : MonoBehaviour
 {
     private static readonly int Horizontal = Animator.StringToHash("horizontal");
     private static readonly int Vertical = Animator.StringToHash("vertical");
-    
     private float _horizontalMovement;
     private float _verticalMovement;
     private float _initialAnimationSpeed;
     [SerializeField] int speed = 2;
     [SerializeField] Animator animator;
+    private static String direction = "right";
 
     void Start()
     {
@@ -29,15 +29,26 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.speed = _initialAnimationSpeed;
             transform.position += Vector3.right * (Time.deltaTime * _horizontalMovement * speed);
+            if (_horizontalMovement > 0)
+                direction = "right";
+            else
+                direction = "left";
         }
-        else if (_verticalMovement !=0)
+        else if (_verticalMovement != 0)
         {
             animator.speed = _initialAnimationSpeed;
             transform.position += Vector3.up * (Time.deltaTime * _verticalMovement * speed);
+            if (_verticalMovement > 0)
+                direction = "up";
+            else
+                direction = "down";
         }
         else
-        {
             animator.speed = 0;
-        }
+    }
+
+    public static String GetPlayerDirection()
+    {
+        return direction;
     }
 }
