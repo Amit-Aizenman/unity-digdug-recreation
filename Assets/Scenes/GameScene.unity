@@ -269,16 +269,24 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4597451214755687501, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597451214755687501, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597451214755687501, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5250666383226069429, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5250666383226069429, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5250666383226069429, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -327,6 +335,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 271445015614353417, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1050401668}
+    - targetCorrespondingSourceObject: {fileID: 271445015614353417, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1050401669}
   m_SourcePrefab: {fileID: 100100000, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
 --- !u!1 &1050401667 stripped
 GameObject:
@@ -355,6 +366,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1050401669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050401667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537d7ee20fe317c449f5158ee922b44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  animator: {fileID: 1050401668}
 --- !u!1 &1603298751
 GameObject:
   m_ObjectHideFlags: 0
