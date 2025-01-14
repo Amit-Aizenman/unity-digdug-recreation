@@ -48,10 +48,10 @@ public class TilesManager : MonoBehaviour
         }
         else
         {
-            GameObject topTile = Instantiate(topTilesTexture, player.transform.position + Vector3.right * 0.14f,
+            GameObject topTile = Instantiate(topTilesTexture, player.transform.position + Vector3.left * 0.14f,
                 Quaternion.identity);
             topTile.transform.rotation = Quaternion.Euler(0, 0, 90);
-            GameObject botTile = Instantiate(botTilesTexture, player.transform.position + Vector3.left * 0.1f,
+            GameObject botTile = Instantiate(botTilesTexture, player.transform.position + Vector3.right * 0.205f,
                 Quaternion.identity);
             botTile.transform.rotation = Quaternion.Euler(0, 0, 90);
             GameObject midTile = Instantiate(midTilesTexture, player.transform.position, Quaternion.identity);
