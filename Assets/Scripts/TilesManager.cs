@@ -8,6 +8,7 @@ public class TilesManager : MonoBehaviour
     [SerializeField] private GameObject botTilesTexture;
     [SerializeField] private GameObject midTilesTexture;
     [SerializeField] private float distanceBetweenTiles = 0.234f;
+    [SerializeField] private float startTileX = 0.162f;
     private HashSet<Vector3> _tilesPositions;
     private Stack<GameObject> _tilesStack;
     private Vector3 playerPosition;
@@ -22,7 +23,7 @@ public class TilesManager : MonoBehaviour
     {
         playerPosition = player.transform.position;
         Vector3 fixedPosition = new Vector3(
-            playerPosition.x - playerPosition.x % distanceBetweenTiles,
+            startTileX + playerPosition.x - playerPosition.x % distanceBetweenTiles,
             playerPosition.y - playerPosition.y % distanceBetweenTiles,
             playerPosition.z - playerPosition.z % distanceBetweenTiles);
         if (!_tilesPositions.Contains(fixedPosition))

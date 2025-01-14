@@ -298,11 +298,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5250666383226069429, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.44
+      value: -0.152
       objectReference: {fileID: 0}
     - target: {fileID: 5250666383226069429, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.46
+      value: -0.57
       objectReference: {fileID: 0}
     - target: {fileID: 5250666383226069429, guid: 1f1a5d1a021bf4647a33c6792e0b587a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -509,6 +509,7 @@ MonoBehaviour:
   botTilesTexture: {fileID: 8349534060517039699, guid: 9286e737af986eb49a97719b7c1267cb, type: 3}
   midTilesTexture: {fileID: 8408776872961859980, guid: 53ac14922244c6f478dd5c3b778d36b3, type: 3}
   distanceBetweenTiles: 0.12
+  startTileX: 0.162
 --- !u!4 &2086484304
 Transform:
   m_ObjectHideFlags: 0
