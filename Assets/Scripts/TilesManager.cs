@@ -28,7 +28,6 @@ public class TilesManager : MonoBehaviour
             playerPosition.z - playerPosition.z % distanceBetweenTiles);
         if (!_tilesPositions.Contains(fixedPosition))
         {
-            Debug.Log(fixedPosition);
             MakeTiles(fixedPosition);
         }
     }
