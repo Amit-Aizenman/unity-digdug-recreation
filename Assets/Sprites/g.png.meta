@@ -1318,7 +1318,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -8020,7 +8020,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 127
-        y: 65
+        y: 47
         width: 10
         height: 10
       alignment: 0
@@ -10765,6 +10765,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: g_83
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 47
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2662e15be417672499f969812cd17ad0
+      internalID: 1951769819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -11189,6 +11211,8 @@ TextureImporter:
       g_80: 147891769018894260
       g_81: -2053066937098497350
       g_82: -3215103832980738168
+      g_83: 1951769819
+      g_84: 2109296726
       g_85: -7944116355282032109
       g_86: 1944488051924465551
       g_87: -1613245570330693024

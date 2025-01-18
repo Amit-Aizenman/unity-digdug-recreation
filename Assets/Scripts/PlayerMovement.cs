@@ -51,4 +51,9 @@ public class PlayerMovement : MonoBehaviour
     {
         return direction;
     }
+
+    public void StepSound()
+    {
+        //todo
+    }
 }

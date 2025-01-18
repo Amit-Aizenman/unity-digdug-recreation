@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 178679628885621648}
   - component: {fileID: 682048801721660668}
   - component: {fileID: 8506270799060846075}
+  - component: {fileID: -6766995475724021364}
   m_Layer: 0
   m_Name: Hook
   m_TagString: Untagged
@@ -140,3 +141,18 @@ PolygonCollider2D:
       - {x: 0.085, y: -0.0175}
       - {x: 0.085, y: 0.0175}
   m_UseDelaunayMesh: 0
+--- !u!114 &-6766995475724021364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802920217999544152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f033fabaf4163bc489a3094eea3ffdc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hookSpeed: 4
+  maxDistance: 1.5
+  spriteMask: {fileID: 4959974502393022128, guid: 52a6f4319afd7194a90987246a58b9e5, type: 3}
