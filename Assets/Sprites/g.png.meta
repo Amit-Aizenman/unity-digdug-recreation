@@ -1332,7 +1332,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -5244,28 +5244,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: g_177
-      rect:
-        serializedVersion: 2
-        x: 19
-        y: 160
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f54f93158c00e28b0800000000000000
-      internalID: -5175198061445909409
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: g_178
       rect:
         serializedVersion: 2
@@ -5728,72 +5706,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: g_199
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 104
-        width: 116
-        height: 43
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 28605bbef77186850800000000000000
-      internalID: 6370367511098361474
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: g_200
-      rect:
-        serializedVersion: 2
-        x: 126
-        y: 101
-        width: 45
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3a00c4c94da6f5aa0800000000000000
-      internalID: -6170095503086452573
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: g_201
-      rect:
-        serializedVersion: 2
-        x: 215
-        y: 101
-        width: 50
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c2d86a95a7ccb67f0800000000000000
-      internalID: -618175697971147476
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: g_202
       rect:
         serializedVersion: 2
@@ -5838,28 +5750,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: g_204
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 105
-        width: 29
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 08dfe9cb3928ab4d0800000000000000
-      internalID: -3118036220964307584
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: g_205
       rect:
         serializedVersion: 2
@@ -5899,50 +5789,6 @@ TextureImporter:
       bones: []
       spriteID: 6ae2f5c5dd6a4ffe0800000000000000
       internalID: -1156115734659649882
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: g_207
-      rect:
-        serializedVersion: 2
-        x: 197
-        y: 101
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 55a5b8c26b4a0f510800000000000000
-      internalID: 1580944571545377365
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: g_208
-      rect:
-        serializedVersion: 2
-        x: 198
-        y: 104
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3675e798f7faaf920800000000000000
-      internalID: 3024923062035175267
       vertices: []
       indices: 
       edges: []
@@ -9230,9 +9076,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 119
-        y: 62
+        y: 57
         width: 8
-        height: 3
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -9251,10 +9097,10 @@ TextureImporter:
       name: g_359
       rect:
         serializedVersion: 2
-        x: 127
+        x: 128
         y: 57
-        width: 10
-        height: 9
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -9273,9 +9119,9 @@ TextureImporter:
       name: g_360
       rect:
         serializedVersion: 2
-        x: 142
+        x: 137
         y: 57
-        width: 4
+        width: 8
         height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -10796,7 +10642,7 @@ TextureImporter:
         width: 8
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
