@@ -10728,7 +10728,7 @@ TextureImporter:
         x: 46
         y: 28
         width: 10
-        height: 15
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -10774,7 +10774,7 @@ TextureImporter:
         width: 8
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -10783,6 +10783,28 @@ TextureImporter:
       bones: []
       spriteID: 2662e15be417672499f969812cd17ad0
       internalID: 1951769819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: g_84
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 38
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7eb5feb53454e3469519fa08bc34f1e
+      internalID: 2109296726
       vertices: []
       indices: 
       edges: []
