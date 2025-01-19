@@ -54,11 +54,6 @@ public class PlayerMovement : MonoBehaviour
             animator.speed = 0;
     }
 
-    public static String GetPlayerDirection()
-    {
-        return direction;
-    }
-
     public void StepSound()
     {
         //todo
