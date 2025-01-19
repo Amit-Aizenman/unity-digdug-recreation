@@ -3291,6 +3291,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1227774684488646630, guid: 940295693e09e5d4fb93b67a9e39c31f, type: 3}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227774684488646630, guid: 940295693e09e5d4fb93b67a9e39c31f, type: 3}
+      propertyPath: tilemap
+      value: 
+      objectReference: {fileID: 455662931}
+    - target: {fileID: 1227774684488646630, guid: 940295693e09e5d4fb93b67a9e39c31f, type: 3}
+      propertyPath: newSprite
+      value: 
+      objectReference: {fileID: 1380454524, guid: 33f2f797bb8157e4dbe7e2f01d41b296, type: 3}
     - target: {fileID: 4306121416628633873, guid: 940295693e09e5d4fb93b67a9e39c31f, type: 3}
       propertyPath: m_Controller
       value: 
@@ -3313,7 +3325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8412678204541840046, guid: 940295693e09e5d4fb93b67a9e39c31f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.53
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8412678204541840046, guid: 940295693e09e5d4fb93b67a9e39c31f, type: 3}
       propertyPath: m_LocalPosition.z
