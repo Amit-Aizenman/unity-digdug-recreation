@@ -1148,7 +1148,7 @@ GameObject:
   - component: {fileID: 7057427799878330265}
   - component: {fileID: 3396141165443049137}
   m_Layer: 0
-  m_Name: New Tile Palette
+  m_Name: terrainSprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

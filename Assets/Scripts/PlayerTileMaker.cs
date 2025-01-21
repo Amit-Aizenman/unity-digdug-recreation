@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,115 +12,108 @@ public class PlayerTileMaker : MonoBehaviour
     private string _previousDirection = "right";
     private string _currentDirection = "right";
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Dictionary<string, int> _moveValues = new Dictionary<string, int>
     {
-    }
-
-    // Update is called once per frame
+        { "up", 0 },
+        { "right", 90 },
+        { "down", 180 },
+        { "left", 270 },
+    };
+    
     void Update()
     {
         _currentDirection = PlayerMovement.GetDirection();
-        dugTilemaps[0].GetTile(dugTilemaps[0].WorldToCell(transform.position));
-        if (!dugTilemaps[0]
-                .GetTile(dugTilemaps[0].WorldToCell(transform.position))) // if no dug tile in player position
+        TileLogic(0);
+    }
+
+    void PlaceTile(Tilemap tilemap, TileBase tile, float angle, Vector3 position)
+    {
+        Vector3Int tilePos = tilemap.WorldToCell(position);
+        tilemap.SetTile(tilePos, tile);
+        Matrix4x4 rotationMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 0, -angle));
+        tilemap.SetTransformMatrix(tilePos, rotationMatrix);
+        tilemap.RefreshTile(tilePos);
+    }
+
+    private void TileLogic(int i)
+    {
+        if (!dugTilemaps[i]
+                .GetTile(dugTilemaps[i].WorldToCell(transform.position))) // if no dug tile in player position
         {
-            if (_previousDirection.Equals(_currentDirection))
+            if (_previousDirection.Equals(_currentDirection) ||
+                Math.Abs(_moveValues[_previousDirection] - _moveValues[_currentDirection]) == 180) //going to the same axis
             {
-                if (_currentDirection.Equals("right") || _currentDirection.Equals("left"))
+                _previousDirection = _currentDirection;
+                if (PlayerBeforeTileCenter())
                 {
-                    dugTilemaps[0].SetTile(dugTilemaps[0].WorldToCell(transform.position), dugTiles[0]);
+                    PlaceTile(dugTilemaps[i], dugTiles[0], _moveValues[_previousDirection],transform.position);
+                    
                 }
                 else
                 {
-                    dugTilemaps[0].SetTile(dugTilemaps[0].WorldToCell(transform.position), dugTiles[1]);
+                    PlaceTile(dugTilemaps[i], dugTiles[1], _moveValues[_previousDirection],transform.position);
                 }
             }
-            else
+            else //going to vertical direction
             {
-                if (_currentDirection.Equals("right"))
+                float movementValue = (_moveValues[_currentDirection] + _moveValues[_previousDirection]) % 360;
+                if (movementValue > 180 )
                 {
-                    if (_previousDirection.Equals("left"))
+                    if (_moveValues[_previousDirection] - _moveValues[_currentDirection] < 0)
                     {
-                        dugTilemaps[0].SetTile(dugTilemaps[0].WorldToCell(transform.position), dugTiles[0]);
+                        PlaceTile(dugTilemaps[i], dugTiles[2], 0, PreviousTile());
                         _previousDirection = _currentDirection;
                     }
-                    else if (_previousDirection.Equals("up"))
+                    else
                     {
-                        dugTilemaps[0].SetTile(_previousDugTilePos, dugTiles[7]);
-                        _previousDirection = _currentDirection;
-                    }
-                    else if (_previousDirection.Equals("down"))
-                    {
-                        dugTilemaps[0].SetTile(_previousDugTilePos, dugTiles[8]);
+                        PlaceTile(dugTilemaps[i], dugTiles[2], 180, PreviousTile());
                         _previousDirection = _currentDirection;
                     }
                 }
-                else if (_currentDirection.Equals("left"))
+                else
                 {
-                    if (_previousDirection.Equals("right"))
+                    if (_previousDirection.Equals("right") || _previousDirection.Equals("down"))
                     {
-                        dugTilemaps[0].SetTile(dugTilemaps[0].WorldToCell(transform.position), dugTiles[0]);
+                        PlaceTile(dugTilemaps[i], dugTiles[2], 90, PreviousTile());
                         _previousDirection = _currentDirection;
                     }
-                    else if (_previousDirection.Equals("up"))
+                    else
                     {
-                        dugTilemaps[0].SetTile(_previousDugTilePos, dugTiles[6]);
-                        _previousDirection = _currentDirection;
-                    }
-                    else if (_previousDirection.Equals("down"))
-                    {
-                        dugTilemaps[0].SetTile(_previousDugTilePos, dugTiles[9]);
-                        _previousDirection = _currentDirection;
-                    }
-                }
-                else if (_currentDirection.Equals("up"))
-                {
-                    if (_previousDirection.Equals("left"))
-                    {
-                        dugTilemaps[0].SetTile(_previousDugTilePos, dugTiles[8]);
-                        _previousDirection = _currentDirection;
-                    }
-                    else if (_previousDirection.Equals("right"))
-                    {
-                        dugTilemaps[0].SetTile(_previousDugTilePos, dugTiles[9]);
-                        _previousDirection = _currentDirection;
-                    }
-                    else if (_previousDirection.Equals("down"))
-                    {
-                        dugTilemaps[0].SetTile(dugTilemaps[0].WorldToCell(transform.position), dugTiles[1]);
-                        _previousDirection = _currentDirection;
-                    }
-                }
-                else if (_currentDirection.Equals("down"))
-                {
-                    if (_previousDirection.Equals("left"))
-                    {
-                        dugTilemaps[0].SetTile(_previousDugTilePos, dugTiles[7]);
-                        _previousDirection = _currentDirection;
-                    }
-                    else if (_previousDirection.Equals("up"))
-                    {
-                        dugTilemaps[0].SetTile(dugTilemaps[0].WorldToCell(transform.position), dugTiles[1]);
-                        _previousDirection = _currentDirection;
-                    }
-                    else if (_previousDirection.Equals("right"))
-                    {
-                        dugTilemaps[0].SetTile(_previousDugTilePos, dugTiles[6]);
+                        PlaceTile(dugTilemaps[i], dugTiles[2], 270, PreviousTile());
                         _previousDirection = _currentDirection;
                     }
                 }
             }
-        }
-        else
-        {
-            _previousDugTilePos = dugTilemaps[0].WorldToCell(transform.position);
         }
     }
 
-    private void TileLogic()
-    {
-        
-    }
     
+
+    private bool PlayerBeforeTileCenter()
+    {
+        int directionValue = _currentDirection.Equals("right") || _currentDirection.Equals("up")? 1 : -1;
+        Vector3Int cellPos = normalTilemap.WorldToCell(transform.position);
+        Vector3 centerCellPos = normalTilemap.GetCellCenterWorld(cellPos);
+        Vector3 distanceFromCenter = centerCellPos - transform.position;
+        if (distanceFromCenter.x != 0)
+        {
+            return directionValue * distanceFromCenter.x >= 0;
+        }
+        return directionValue * distanceFromCenter.y >= 0;
+            
+    }
+
+    private Vector3 PreviousTile()
+    {
+        Grid grid = normalTilemap.layoutGrid;
+        float cellSize = grid.cellSize.x;
+        
+        if (_currentDirection.Equals("right"))
+            return transform.position - Vector3.right * cellSize;
+        if (_currentDirection.Equals("up"))
+            return transform.position - Vector3.up * cellSize;
+        if (_currentDirection.Equals("down"))
+            return transform.position - Vector3.down * cellSize;
+        return transform.position - Vector3.left * cellSize;
+    }
 }
