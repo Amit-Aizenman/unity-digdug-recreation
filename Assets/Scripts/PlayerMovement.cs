@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using NUnit.Framework.Constraints;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Object = System.Object;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -85,5 +82,10 @@ public class PlayerMovement : MonoBehaviour
             return directions[wantedDirection];
         }
         return directions[direction];
+    }
+
+    public static string GetDirection()
+    {
+        return direction;
     }
 }

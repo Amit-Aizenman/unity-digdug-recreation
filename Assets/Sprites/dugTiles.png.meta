@@ -276,9 +276,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 109
-        y: 0
-        width: 17
-        height: 18
+        y: 1
+        width: 16
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -297,10 +297,10 @@ TextureImporter:
       name: dugTiles_7
       rect:
         serializedVersion: 2
-        x: 126
-        y: 0
-        width: 17
-        height: 18
+        x: 127
+        y: 1
+        width: 16
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,8 +321,8 @@ TextureImporter:
         serializedVersion: 2
         x: 145
         y: 0
-        width: 17
-        height: 18
+        width: 16
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,10 +341,10 @@ TextureImporter:
       name: dugTiles_9
       rect:
         serializedVersion: 2
-        x: 162
+        x: 163
         y: 0
-        width: 17
-        height: 18
+        width: 16
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
