@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -112,20 +111,12 @@ public class PlayerTileMaker : MonoBehaviour
             {
                 if (_dugTileDictionary[ToVecInt(position)].Item2 == angle)
                 {
-                    //Debug.Log("same tile - first: " + tile.name + ", angle: " + angle + ", position: " + ToVecInt(position) + 
-                      //        ", second: " +_dugTileDictionary[ToVecInt(position)].Item1 + ", angle: "
-                         //     + _dugTileDictionary[ToVecInt(position)].Item2 + ", position: " + ToVecInt(position));
                     return true;
                 }
-
-             //   Debug.Log("not same angle. " + "my angle is: " + angle + " and dict angle is: " + _dugTileDictionary[ToVecInt(position)].Item2);
                 return false;
             }
-
-            //Debug.Log("not same name " + "my name is: " + tile.name + " and dict name is: " + _dugTileDictionary[ToVecInt(position)].Item1);
             return false;
         }
-       // Debug.Log("not same pos");
         return false;
     }
 
@@ -159,16 +150,16 @@ public class PlayerTileMaker : MonoBehaviour
             return;
         }
 
-        if (!IsAlreadyIn(dugTiles[0], _moveValues[_previousDirection], transform.position) && PreviousTileCheck())
+        if (!IsAlreadyIn(dugTiles[0], Math.Min(_moveValues[_previousDirection],(_moveValues[_previousDirection]+180)%360), transform.position) && PreviousTileCheck())
         {
-            PlaceTile(dugTilemaps[i], dugTiles[0], _moveValues[_previousDirection], transform.position);
+            PlaceTile(dugTilemaps[i], dugTiles[0], Math.Min(_moveValues[_previousDirection],(_moveValues[_previousDirection]+180)%360), transform.position);
 
             return;
         }
 
         if (!PlayerBeforeTileCenter() && PreviousTileCheck())
         {
-            PlaceTile(dugTilemaps[i], dugTiles[1], _moveValues[_previousDirection], transform.position);
+            PlaceTile(dugTilemaps[i], dugTiles[1], Math.Min(_moveValues[_previousDirection],(_moveValues[_previousDirection]+180)%360), transform.position);
             _preTile = ToVecInt(transform.position);
             //        Debug.Log(dugTilemaps[i].name + " placed tile named: " + dugTiles[1].name);
         }
