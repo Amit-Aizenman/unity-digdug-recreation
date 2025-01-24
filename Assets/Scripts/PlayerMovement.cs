@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private float _horizontalMovement;
     private float _verticalMovement;
     private float _initialAnimationSpeed;
+    private Vector3Int _previousTile; 
     [SerializeField] Tilemap tilemap;
     [SerializeField] int speed = 2;
     [SerializeField] Animator animator;

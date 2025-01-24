@@ -9,10 +9,13 @@ public class PlayerTileMaker : MonoBehaviour
     [SerializeField] private List<Tilemap> dugTilemaps;
     [SerializeField] private List<TileBase> dugTiles;
     [SerializeField] private float playerOffset;
+    [SerializeField] private TileManager tileManager;
     private string _previousDirection = "right";
     private string _currentDirection = "right";
     private Dictionary<Vector3Int, (string, float)> _dugTileDictionary = new();
-    private Vector3Int _preTile;
+    private static Vector3Int _previousTile;
+    private static Vector3Int _currentTile;
+    private Vector3 _preTile;
 
 
     private Dictionary<string, int> _moveValues = new Dictionary<string, int>
@@ -25,21 +28,28 @@ public class PlayerTileMaker : MonoBehaviour
 
     private void Start()
     {
-        _preTile = normalTilemap.WorldToCell(transform.position);
+        _previousTile = dugTilemaps[0].WorldToCell(transform.position);
+        _currentTile = dugTilemaps[0].WorldToCell(transform.position);
     }
     private void Update()
     {
-        _currentDirection = PlayerMovement.GetDirection();
+        UpdateTileHistory();
+        /*_currentDirection = PlayerMovement.GetDirection();
         for (int i = 0; i < dugTilemaps.Count; i++)
         {
             TileLogic(i);
-        }
+        }*/
+        _currentDirection = PlayerMovement.GetDirection();
+       // Debug.Log("Setting Tile with - position: " + transform.position + ", pre: "+ _previousDirection +
+            //      ", curr: " + _currentDirection + ", playerbefore: " + PlayerBeforeTileCenter());
+        tileManager.SetTile(transform.position, _previousDirection, _currentDirection, PlayerBeforeTileCenter());
+        _previousDirection = _currentDirection;
     }
 
     private void PlaceTile(Tilemap tilemap, TileBase tile, float angle, Vector3 position)
     {
-        Debug.Log("Placing in tilemap:" + tilemap.name + ", tile: " + tile.name + ", angle: " + angle + ", position: " +
-                  ToVecInt(position));
+        //Debug.Log("Placing in tilemap:" + tilemap.name + ", tile: " + tile.name + ", angle: " + angle + ", position: " +
+                 // ToVecInt(position));
         Vector3Int tilePos = tilemap.WorldToCell(position);
         tilemap.SetTile(tilePos, tile);
         Matrix4x4 rotationMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 0, -angle));
@@ -68,9 +78,9 @@ public class PlayerTileMaker : MonoBehaviour
         }
         else
         {
-            Debug.Log("In tilemap:" + dugTilemaps[i].name +
+            /*Debug.Log("In tilemap:" + dugTilemaps[i].name +
                       " , the tile: " + dugTilemaps[i].GetTile(dugTilemaps[i].WorldToCell(transform.position))
-                      + "is already there.");
+                      + "is already there.");*/
         }
     }
 
@@ -161,7 +171,6 @@ public class PlayerTileMaker : MonoBehaviour
         {
             PlaceTile(dugTilemaps[i], dugTiles[1], Math.Min(_moveValues[_previousDirection],(_moveValues[_previousDirection]+180)%360), transform.position);
             _preTile = ToVecInt(transform.position);
-            //        Debug.Log(dugTilemaps[i].name + " placed tile named: " + dugTiles[1].name);
         }
     }
 
@@ -220,7 +229,7 @@ public class PlayerTileMaker : MonoBehaviour
 
     private bool PreviousTileCheck()
     {
-        return normalTilemap.WorldToCell(PreviousTile()) == _preTile;
+        return normalTilemap.WorldToCell(PreviousTile()) == _previousTile;
     }
 
     private Vector3 GetCenterPosOfCell(Vector3 position)
@@ -233,5 +242,21 @@ public class PlayerTileMaker : MonoBehaviour
     {
         return Math.Abs(Vector3.Distance(one,two)) < dist;
     }
+
+    private void UpdateTileHistory()
+    {
+        var newTile = dugTilemaps[0].WorldToCell(transform.position);
+        if (newTile != _currentTile)
+        {
+            _previousTile = _currentTile;
+            _currentTile = newTile;
+        }
+    }
+
+    public static Vector3Int GetPreviousTile()
+    {
+        return _previousTile;
+    }
+    
 
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: upNonFinish
+  m_Name: halfTile
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 4889624588875523418, guid: ee07310b3cc2ba64b819924eb39b2b4f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
