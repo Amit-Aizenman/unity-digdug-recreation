@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 682048801721660668}
   - component: {fileID: 8506270799060846075}
   - component: {fileID: -6766995475724021364}
+  - component: {fileID: 5111346476390632351}
   m_Layer: 0
   m_Name: Hook
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 13.5, y: 8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1775111417
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 6329714125698814493, guid: ce7a3ce065ce9c1419b71d08d5e28df0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -87,7 +88,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!60 &8506270799060846075
 PolygonCollider2D:
@@ -135,11 +136,20 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.085, y: 0.0175}
-      - {x: -0.085, y: -0.0025}
-      - {x: -0.065, y: -0.0175}
-      - {x: 0.085, y: -0.0175}
-      - {x: 0.085, y: 0.0175}
+    - - {x: 0.06460769, y: 0.012817439}
+      - {x: 0.06491559, y: 0.0006485819}
+      - {x: 0.06477012, y: -0.0071430425}
+      - {x: 0.06463428, y: -0.012985093}
+      - {x: 0.07041633, y: -0.013085367}
+      - {x: 0.0704132, y: -0.007983079}
+      - {x: 0.07526729, y: -0.007465486}
+      - {x: 0.07532259, y: -0.0033069341}
+      - {x: 0.079987735, y: -0.0031917258}
+      - {x: 0.08021311, y: 0.0026529543}
+      - {x: 0.075455755, y: 0.0023745745}
+      - {x: 0.07536567, y: 0.0078115934}
+      - {x: 0.07032011, y: 0.008014319}
+      - {x: 0.07024284, y: 0.012984673}
   m_UseDelaunayMesh: 0
 --- !u!114 &-6766995475724021364
 MonoBehaviour:
@@ -153,6 +163,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f033fabaf4163bc489a3094eea3ffdc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hookSpeed: 4
-  maxDistance: 1.5
-  spriteMask: {fileID: 4959974502393022128, guid: 52a6f4319afd7194a90987246a58b9e5, type: 3}
+  speed: 10
+  lifetime: 1
+--- !u!50 &5111346476390632351
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802920217999544152}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

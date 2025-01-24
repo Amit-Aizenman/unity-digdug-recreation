@@ -6,17 +6,12 @@ using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private static readonly int Horizontal = Animator.StringToHash("horizontal");
-    private static readonly int Vertical = Animator.StringToHash("vertical");
-    
     private static String direction = "right";
     private float _horizontalMovement;
     private float _verticalMovement;
-    private float _initialAnimationSpeed;
     private Vector3Int _previousTile; 
     [SerializeField] Tilemap tilemap;
     [SerializeField] int speed = 2;
-    [SerializeField] Animator animator;
     
     private Dictionary<string, Vector3> directions = new Dictionary<string, Vector3>
     {
@@ -25,31 +20,21 @@ public class PlayerMovement : MonoBehaviour
         { "up", Vector3.up },
         { "down", Vector3.down },
     };
-
-    void Start()
-    {
-        _initialAnimationSpeed = animator.speed;
-    }
+    
     void Update()
     {
         _horizontalMovement = Input.GetAxisRaw("Horizontal");
         _verticalMovement = Input.GetAxisRaw("Vertical");
-        animator.SetFloat(Horizontal, _horizontalMovement);
-        animator.SetFloat(Vertical, _verticalMovement);
         if (_horizontalMovement != 0)
         {
             var movementVector = FixedPlayerMovement(_horizontalMovement > 0 ? "right" : "left");
-            animator.speed = _initialAnimationSpeed;
             transform.position += movementVector * (Time.deltaTime * speed);
         }
         else if (_verticalMovement != 0)
         {
             var movementVector = FixedPlayerMovement(_verticalMovement > 0 ? "up" : "down");
-            animator.speed = _initialAnimationSpeed;
             transform.position += movementVector * (Time.deltaTime * speed);
         }
-        else
-            animator.speed = 0;
     }
 
     public void StepSound()
