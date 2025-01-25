@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2373972174700873512}
   - component: {fileID: 4890253985537999891}
   - component: {fileID: 3143485438796083807}
+  - component: {fileID: 8804702903519475872}
   m_Layer: 0
   m_Name: Pooga
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,7 +128,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.075, y: 0.07}
+    oldSize: {x: 0.075, y: 0.08}
     newSize: {x: 0.075, y: 0.07}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -147,8 +148,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc68377e013da247ba278529ee37838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
+  tilemap: {fileID: 0}
+  speed: 2
+  boxCollider2D: {fileID: 0}
+  obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
-  monsterSpeed: 4
-  minTileDistance: 0.1
+--- !u!114 &8804702903519475872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4513709134246683703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c9ccf656af4fc5acebdc815c8e5e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  recoverTime: 0

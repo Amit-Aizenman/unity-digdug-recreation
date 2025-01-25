@@ -7,7 +7,7 @@ public class HookMask : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, lifetime);
+        Destroy(gameObject, lifetime); //todo:change this based on hook 
     }
 
     // Update is called once per frame

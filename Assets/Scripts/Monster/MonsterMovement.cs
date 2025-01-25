@@ -1,85 +1,103 @@
-using System;
-using UnityEngine;
 using System.Collections.Generic;
-using Unity.Mathematics;
+using Managers;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
-public class MonsterMovement : MonoBehaviour
+namespace Monster
 {
-    [SerializeField] private Tilemap tilemap;
-    [SerializeField] private float speed = 2f;
-    [SerializeField] private BoxCollider2D boxCollider2D;
-    [SerializeField] private LayerMask obstacleLayer;
-
-    private Vector3 _currentDirection;
-
-    private readonly Vector2[] _straightDirections =
+    public class MonsterMovement : MonoBehaviour
     {
-        Vector3.right,
-        Vector3.left,
-        Vector3.up,
-        Vector3.down
-    };
+        [SerializeField] private Tilemap tilemap;
+        [SerializeField] private float speed = 2f;
+        [SerializeField] private BoxCollider2D boxCollider2D;
+        [SerializeField] private LayerMask obstacleLayer;
 
-    void Start()
-    {
-        _currentDirection = GetRandomDirection();
-    }
+        private Vector3 _currentDirection;
 
-    void Update()
-    {
-        transform.position += _currentDirection * (Time.deltaTime * speed);
-
-        if (IsColliding(_currentDirection))
+        private readonly Vector2[] _straightDirections =
         {
-            ChooseNewDirection();
+            Vector3.right,
+            Vector3.left,
+            Vector3.up,
+            Vector3.down
+        };
+
+        void Start()
+        {
+            _currentDirection = GetRandomDirection();
         }
-    }
 
-    private bool IsColliding(Vector3 direction)
-    {
-        RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxCollider2D.size, 0f, direction, 0.1f, obstacleLayer);
-
-        return hit.collider != null;
-    }
-
-    private void ChooseNewDirection()
-    {
-        List<Vector2> availableDirections = new List<Vector2>();
-
-        foreach (var direction in _straightDirections)
+        void Update()
         {
-            if (!IsColliding(direction))
+            transform.position += _currentDirection * (Time.deltaTime * speed);
+
+            if (IsColliding(_currentDirection))
             {
-                availableDirections.Add(direction);
+                ChooseNewDirection();
             }
         }
 
-        if (availableDirections.Count > 0)
+        private bool IsColliding(Vector3 direction)
         {
-            _currentDirection = availableDirections[Random.Range(0, availableDirections.Count)];
+            RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxCollider2D.size, 0f, direction, 0.1f, obstacleLayer);
+
+            return hit.collider != null;
         }
-        else
+
+        private void ChooseNewDirection()
         {
-            _currentDirection = Vector2.zero;
+            List<Vector2> availableDirections = new List<Vector2>();
+
+            foreach (var direction in _straightDirections)
+            {
+                if (!IsColliding(direction))
+                {
+                    availableDirections.Add(direction);
+                }
+            }
+
+            _currentDirection = availableDirections.Count > 0 ?
+                availableDirections[Random.Range(0, availableDirections.Count)] : Vector2.zero;
         }
-    }
 
-    private Vector3 GetRandomDirection()
-    {
-        return _straightDirections[Random.Range(0, _straightDirections.Length)];
-    }
+        private Vector3 GetRandomDirection()
+        {
+            return _straightDirections[Random.Range(0, _straightDirections.Length)];
+        }
 
-    void OnDrawGizmos()
-    {
-        if (boxCollider2D == null) return;
+        void OnDrawGizmos()
+        {
+            if (boxCollider2D == null) return;
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position + _currentDirection * 0.1f, boxCollider2D.size);
-    }
-    
-    /*private Vector3 FixedPlayerMovement(String wantedDirection)
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(transform.position + _currentDirection * 0.1f, boxCollider2D.size);
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+            
+            }
+        }
+        
+        private void OnEnable()
+        {
+            EventManager.HitMonster += Stop;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.HitMonster -= Stop;
+        }
+
+        private void Stop(int hit)
+        {
+            speed = 0;
+        }
+
+        /*private Vector3 FixedPlayerMovement(String wantedDirection)
     {
         var currentCellPos = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
         if (currentCellPos == transform.position)
@@ -106,4 +124,5 @@ public class MonsterMovement : MonoBehaviour
         }
         return _directions[direction];
     }*/
+    }
 }

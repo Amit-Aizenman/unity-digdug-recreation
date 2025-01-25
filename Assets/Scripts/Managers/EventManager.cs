@@ -1,16 +1,11 @@
+using System;
 using UnityEngine;
 
-public class EventManager : MonoBehaviour
+namespace Managers
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class EventManager : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        public static Action<int> HitMonster;
         
     }
 }
