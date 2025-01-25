@@ -10,8 +10,7 @@ namespace Hook
 
         void Start()
         {
-            Debug.Log("hI");
-            Destroy(gameObject, lifetime);
+            Destroy(gameObject, lifetime); //todo: check why it isn't working
         }
 
         public void SetDirection(Vector3 newDirection)

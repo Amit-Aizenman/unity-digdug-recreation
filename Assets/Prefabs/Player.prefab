@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 0}
   speed: 3
-  animator: {fileID: 109083534308668547}
+  rigidbody: {fileID: 0}
 --- !u!114 &7394475263553925039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +156,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ed8fe5b49ea93154ea4beb995de49cea, type: 2}
   - {fileID: 11400000, guid: f2da4a9b2521ca840bc2818c2e260a07, type: 2}
   playerOffset: 0.2
+  tileManager: {fileID: 0}
 --- !u!50 &-8148407034813702745
 Rigidbody2D:
   serializedVersion: 5
@@ -164,7 +165,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504848450675265031}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
