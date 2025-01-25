@@ -1,29 +1,31 @@
 using UnityEngine;
 
-public class Hook : MonoBehaviour
+namespace Hook
 {
-    [SerializeField] private float speed = 10f; // Speed of the hook
-    [SerializeField] float lifetime = 0.5f; // Time before the hook is destroyed
-    private Vector3 direction; // Direction the hook travels
-
-    void Start()
+    public class Hook : MonoBehaviour
     {
-        // Destroy the hook after a set time
-        Destroy(gameObject, lifetime);
-    }
+        [SerializeField] private float speed = 10f; // Speed of the hook
+        [SerializeField] float lifetime = 15; // Time before the hook is destroyed
+        private Vector3 _direction; // Direction the hook travels
 
-    public void SetDirection(Vector3 newDirection)
-    {
-        direction = newDirection.normalized; // Normalize to ensure consistent speed
-    }
+        void Start()
+        {
+            Debug.Log("hI");
+            Destroy(gameObject, lifetime);
+        }
 
-    void Update()
-    {
-        // Move the hook forward
-        transform.position += direction * (speed * Time.deltaTime);
-    }
+        public void SetDirection(Vector3 newDirection)
+        {
+            _direction = newDirection.normalized; // Normalize to ensure consistent speed
+        }
 
-    /*private void OnTriggerEnter2D(Collider2D collision)
+        void Update()
+        {
+            // Move the hook forward
+            transform.position += _direction * (speed * Time.deltaTime);
+        }
+
+        /*private void OnTriggerEnter2D(Collider2D collision)
     {
         // Check if the collided object is on the target layer
         if (((1 << collision.gameObject.layer) & collisionMask) != 0)
@@ -38,9 +40,10 @@ public class Hook : MonoBehaviour
         }
     }*/
 
-    void OnHookHit(GameObject target)
-    {
-        // Add custom logic here, e.g., attach the target or deal damage
-        Debug.Log("Hook hit target: " + target.name);
+        private void OnHookHit(GameObject target)
+        {
+            // Add custom logic here, e.g., attach the target or deal damage
+            Debug.Log("Hook hit target: " + target.name);
+        }
     }
 }
