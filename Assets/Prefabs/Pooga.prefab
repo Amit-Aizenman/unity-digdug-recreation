@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3143485438796083807}
   - component: {fileID: 8804702903519475872}
   - component: {fileID: 2419342903792648532}
+  - component: {fileID: -2076310230962574678}
   m_Layer: 0
   m_Name: Pooga
   m_TagString: Monster
@@ -151,10 +152,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 0}
   speed: 2
-  boxCollider2D: {fileID: 0}
+  boxCollider2D: {fileID: 4890253985537999891}
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
 --- !u!114 &8804702903519475872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c9ccf656af4fc5acebdc815c8e5e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoverTime: 0
+  recoverTime: 1
 --- !u!114 &2419342903792648532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +181,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f9f980d6cd596e4eb4a71cff9de0c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  monsterMovement: {fileID: 0}
-  monsterHealth: {fileID: 0}
+  animator: {fileID: -2076310230962574678}
+  monsterMovement: {fileID: 3143485438796083807}
+  monsterHealth: {fileID: 8804702903519475872}
+--- !u!95 &-2076310230962574678
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4513709134246683703}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1b26642f2958a574880e270fec97f0be, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -11,7 +11,7 @@ namespace Monster
     public class MonsterStateMachine : MonoBehaviour
     {
         private static readonly int Hits = Animator.StringToHash("Hits");
-        private static readonly int Running = Animator.StringToHash("Running");
+        private static readonly int Direction = Animator.StringToHash("Direction");
         [SerializeField] private Animator animator;
         [SerializeField] private MonsterMovement monsterMovement;
         [SerializeField] private MonsterHealth monsterHealth;
@@ -42,9 +42,9 @@ namespace Monster
         private void HandleRunningState()
         {
             if (monsterMovement.GetCurrentDirection() == Vector3.right)
-                animator.SetBool(Running, true);
+                animator.SetBool(Direction, true);
             else if (monsterMovement.GetCurrentDirection() == Vector3.left)
-                animator.SetBool(Running, false);
+                animator.SetBool(Direction, false);
         }
 
         private void HandleGotHitState()

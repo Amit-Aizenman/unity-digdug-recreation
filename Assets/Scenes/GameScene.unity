@@ -3434,6 +3434,67 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1001 &1070391385
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3143485438796083807, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: tilemap
+      value: 
+      objectReference: {fileID: 455662931}
+    - target: {fileID: 4513709134246683703, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: m_Name
+      value: Pooga (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379206158363678233, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379206158363678233, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379206158363678233, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379206158363678233, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379206158363678233, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379206158363678233, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379206158363678233, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379206158363678233, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379206158363678233, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379206158363678233, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
 --- !u!1 &1196505366
 GameObject:
   m_ObjectHideFlags: 0
@@ -3592,6 +3653,10 @@ PrefabInstance:
       propertyPath: monsterMovement
       value: 
       objectReference: {fileID: 328801919}
+    - target: {fileID: 3143485438796083807, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: tilemap
+      value: 
+      objectReference: {fileID: 455662931}
     - target: {fileID: 3143485438796083807, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
       propertyPath: boxCollider2D
       value: 
@@ -3882,3 +3947,4 @@ SceneRoots:
   - {fileID: 7723603833579344174}
   - {fileID: 1587501922}
   - {fileID: 1701130810}
+  - {fileID: 1070391385}
