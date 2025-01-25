@@ -9,6 +9,7 @@ namespace Managers
     {
 
         [SerializeField] private Tilemap tilemap;
+        [SerializeField] private Tilemap dugTilemap;
         [SerializeField] private GameObject colliderPrefab;
         private readonly Dictionary<Vector3Int, GameObject> _currentColliders = new();
 
@@ -22,7 +23,7 @@ namespace Managers
                 {
                     Vector3Int cellPosition = new Vector3Int(x, y, 0);
 
-                    if (tilemap.HasTile(cellPosition))
+                    if (tilemap.HasTile(cellPosition) && !dugTilemap.HasTile(cellPosition))
                     {
                         SetColliderForCellPosition(cellPosition);
                     }

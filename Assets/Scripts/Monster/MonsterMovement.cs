@@ -1,133 +1,109 @@
-/*using System.Collections.Generic;
+using System;
 using UnityEngine;
-
-public class MonsterMovement : MonoBehaviour
-{
-    /*[SerializeField] private LayerMask layerMask;
-    [SerializeField] private float monsterSpeed = 4f;
-    private BoxCollider2D _boxCollider;
-    private readonly RaycastHit2D[] _hits = new RaycastHit2D[10];
-    [SerializeField] private float minTileDistance = 5f;
-    private Dictionary<Vector2, int> _availableDirections = new Dictionary<Vector2, int>();
-    private Vector2[] _directions = {
-        Vector2.up,    // (0, 1)
-        Vector2.down,  // (0, -1)
-        Vector2.left,  // (-1, 0)
-        Vector2.right  // (1, 0)
-    };
-    
-     
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        _boxCollider = GetComponent<BoxCollider2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateAvailableDirections();
-        foreach (KeyValuePair<Vector2, int> entry in _availableDirections)
-        {
-            Debug.Log($"Key: {entry.Key}, Value: {entry.Value}");
-        }
-        
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-    }
-
-    private void UpdateAvailableDirections()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            var tilesInDirection = Physics2D.BoxCastNonAlloc(transform.position, _boxCollider.size,
-                0f, _directions[i], _hits, Mathf.Infinity, layerMask);
-            foreach (var hit in _hits)
-            {
-                /*if (hit.distance < minTileDistance)
-                {
-                    tilesInDirection--;
-                }#2#
-            }
-            _availableDirections[_directions[i]] = tilesInDirection;
-        }
-    }#1#
-}*/
-
 using System.Collections.Generic;
-using UnityEngine;
+using Unity.Mathematics;
+using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 public class MonsterMovement : MonoBehaviour
 {
-    [SerializeField] private LayerMask layerMask;
-    [SerializeField] private float monsterSpeed = 4f;
-    private BoxCollider2D _boxCollider;
-    private readonly RaycastHit2D[] _hits = new RaycastHit2D[10];
-    [SerializeField] private float minTileDistance = 5f;
-    private Dictionary<Vector2, int> _availableDirections = new Dictionary<Vector2, int>();
-    private Vector2[] _directions = {
-        Vector2.up,    // (0, 1)
-        Vector2.down,  // (0, -1)
-        Vector2.left,  // (-1, 0)
-        Vector2.right  // (1, 0)
+    [SerializeField] private Tilemap tilemap;
+    [SerializeField] private float speed = 2f;
+    [SerializeField] private BoxCollider2D boxCollider2D;
+    [SerializeField] private LayerMask obstacleLayer;
+
+    private Vector3 _currentDirection;
+
+    private readonly Vector2[] _straightDirections =
+    {
+        Vector3.right,
+        Vector3.left,
+        Vector3.up,
+        Vector3.down
     };
-    private float maxDistance = 10f; // Example max distance
 
     void Start()
     {
-        _boxCollider = GetComponent<BoxCollider2D>();
+        _currentDirection = GetRandomDirection();
     }
 
     void Update()
     {
-        UpdateAvailableDirections();
-        foreach (KeyValuePair<Vector2, int> entry in _availableDirections)
+        transform.position += _currentDirection * (Time.deltaTime * speed);
+
+        if (IsColliding(_currentDirection))
         {
-            Debug.Log($"Key: {entry.Key}, Value: {entry.Value}");
+            ChooseNewDirection();
         }
     }
 
-    private void UpdateAvailableDirections()
+    private bool IsColliding(Vector3 direction)
     {
-        _availableDirections.Clear(); // Reset the dictionary before updating
+        RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxCollider2D.size, 0f, direction, 0.1f, obstacleLayer);
 
-        for (int i = 0; i < _directions.Length; i++)
+        return hit.collider != null;
+    }
+
+    private void ChooseNewDirection()
+    {
+        List<Vector2> availableDirections = new List<Vector2>();
+
+        foreach (var direction in _straightDirections)
         {
-            // Clear the hits array
-            System.Array.Clear(_hits, 0, _hits.Length);
-
-            // Use the collider's bounds
-            Vector2 origin = _boxCollider.bounds.center;
-            Vector2 boxSize = _boxCollider.bounds.size;
-
-            Debug.Log($"Casting from {origin} with size {boxSize} in direction {_directions[i]}");
-
-            // Perform the BoxCastNonAlloc
-            int tilesInDirection = Physics2D.BoxCastNonAlloc(
-                origin,
-                boxSize,
-                0f,
-                _directions[i],
-                _hits,
-                maxDistance,
-                layerMask
-            );
-
-            Debug.Log($"Tiles in direction {_directions[i]}: {tilesInDirection}");
-
-            // Log each hit
-            for (int j = 0; j < tilesInDirection; j++)
+            if (!IsColliding(direction))
             {
-                Debug.Log($"Hit {j}: {_hits[j].collider.name}, Distance: {_hits[j].distance}");
+                availableDirections.Add(direction);
             }
+        }
 
-            // Add the result to the dictionary
-            _availableDirections[_directions[i]] = tilesInDirection;
+        if (availableDirections.Count > 0)
+        {
+            _currentDirection = availableDirections[Random.Range(0, availableDirections.Count)];
+        }
+        else
+        {
+            _currentDirection = Vector2.zero;
         }
     }
 
+    private Vector3 GetRandomDirection()
+    {
+        return _straightDirections[Random.Range(0, _straightDirections.Length)];
+    }
+
+    void OnDrawGizmos()
+    {
+        if (boxCollider2D == null) return;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position + _currentDirection * 0.1f, boxCollider2D.size);
+    }
+    
+    /*private Vector3 FixedPlayerMovement(String wantedDirection)
+    {
+        var currentCellPos = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
+        if (currentCellPos == transform.position)
+        {
+            direction = wantedDirection;
+            return _directions[wantedDirection];
+        }
+
+        if (wantedDirection.Equals("right") || wantedDirection.Equals("left"))
+        {
+            if (math.abs(transform.position.y - currentCellPos.y) < 0.1f)
+            {
+                transform.position = new Vector3(transform.position.x, currentCellPos.y,transform.position.z);
+                direction = wantedDirection;
+                return _directions[wantedDirection];
+            }
+            return _directions[direction];
+        }
+        if (math.abs(transform.position.x - currentCellPos.x) < 0.1f)
+        {
+            transform.position = new Vector3(currentCellPos.x, transform.position.y,transform.position.z);
+            direction = wantedDirection;
+            return _directions[wantedDirection];
+        }
+        return _directions[direction];
+    }*/
 }

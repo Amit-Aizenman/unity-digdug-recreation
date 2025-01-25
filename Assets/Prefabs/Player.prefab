@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7618210437620117408}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,7 +128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 0}
   speed: 3
-  rigidbody: {fileID: 0}
 --- !u!114 &7394475263553925039
 MonoBehaviour:
   m_ObjectHideFlags: 0
