@@ -5,7 +5,7 @@ namespace Hook
     public class Hook : MonoBehaviour
     {
         [SerializeField] private float speed = 10f; // Speed of the hook
-        [SerializeField] float lifetime = 15; // Time before the hook is destroyed
+        [SerializeField] float lifetime = 0.5f; // Time before the hook is destroyed
         private Vector3 _direction; // Direction the hook travels
 
         void Start()
