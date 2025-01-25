@@ -80,7 +80,6 @@ public class PlayerAnimationStateMachine : MonoBehaviour
 
     private void HandleAttackingState()
     {
-        Debug.Log("Attacking");
         transform.position = transform.position;
         if (_isHitting)
         {
@@ -113,7 +112,6 @@ public class PlayerAnimationStateMachine : MonoBehaviour
         animator.SetTrigger("stunned");
 
         // Prevent all input during this state
-        Debug.Log("Player is stunned!");
         // Transition out of stunned after some time (example: 2 seconds)
         Invoke("RecoverFromStun", 2f);
     }
@@ -126,7 +124,6 @@ public class PlayerAnimationStateMachine : MonoBehaviour
         _isRunning = true;
         animator.SetBool(Attacking, false);
         animator.SetBool(Running, true);
-        Debug.Log("changing to running");
         ChangeState(PlayerState.Running);
     }
     
