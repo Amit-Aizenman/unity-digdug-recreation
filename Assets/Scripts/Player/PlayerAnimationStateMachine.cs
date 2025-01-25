@@ -1,4 +1,6 @@
 using System.Collections;
+using Managers;
+using Player;
 using UnityEngine;
 
 public enum PlayerState
@@ -9,8 +11,10 @@ public enum PlayerState
     Dying,
 }
 
-public class PlayerAnimationStateMachine : MonoBehaviour
+public class PlayerStateMachine : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
+    [SerializeField] private PlayerMovement playerMovement;
     private static readonly int Horizontal = Animator.StringToHash("horizontal");
     private static readonly int Vertical = Animator.StringToHash("vertical");
     private static readonly int Running = Animator.StringToHash("Running");
@@ -18,7 +22,7 @@ public class PlayerAnimationStateMachine : MonoBehaviour
     private static readonly int Dying = Animator.StringToHash("Dying");
     private static readonly int Hitting = Animator.StringToHash("Hitting");
     private PlayerState currentState;
-    [SerializeField] private Animator animator;
+    private float _initialPlayerSpeed;
     private float _initialAnimationSpeed;
     private bool _isRunning = true;
     private bool _isAttacking = false;
@@ -28,6 +32,7 @@ public class PlayerAnimationStateMachine : MonoBehaviour
 
     void Start()
     {
+        _initialPlayerSpeed = playerMovement.GetSpeed();
         _initialAnimationSpeed = animator.speed;
         currentState = PlayerState.Running; // initial state
     }
@@ -53,12 +58,15 @@ public class PlayerAnimationStateMachine : MonoBehaviour
 
     private void HandleRunningState()
     {
-        float _horizontalMovement = Input.GetAxisRaw("Horizontal");
-        float _verticalMovement = Input.GetAxisRaw("Vertical");
-        animator.SetFloat(Horizontal, _horizontalMovement);
-        animator.SetFloat(Vertical, _verticalMovement);
-        animator.speed = _horizontalMovement != 0 || _verticalMovement != 0 || 
+        //handling walking animations 
+        var horizontalMovement = Input.GetAxisRaw("Horizontal");
+        var verticalMovement = Input.GetAxisRaw("Vertical");
+        animator.SetFloat(Horizontal, horizontalMovement);
+        animator.SetFloat(Vertical, verticalMovement);
+        animator.speed = horizontalMovement != 0 || verticalMovement != 0 || 
                          !animator.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("walk") ? _initialAnimationSpeed : 0;
+        
+        
         if (_isDying) // todo: find out where do i change it 
         {
             _isRunning = false;
@@ -69,6 +77,7 @@ public class PlayerAnimationStateMachine : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
+            playerMovement.SetSpeed(0);
             animator.speed = _initialAnimationSpeed;
             _isRunning = false;
             _isAttacking = true;
@@ -80,7 +89,6 @@ public class PlayerAnimationStateMachine : MonoBehaviour
 
     private void HandleAttackingState()
     {
-        transform.position = transform.position;
         if (_isHitting)
         {
             _isAttacking = false;
@@ -109,11 +117,9 @@ public class PlayerAnimationStateMachine : MonoBehaviour
 
     private void HandleDyingState()
     {
-        animator.SetTrigger("stunned");
-
-        // Prevent all input during this state
-        // Transition out of stunned after some time (example: 2 seconds)
-        Invoke("RecoverFromStun", 2f);
+        animator.speed = _initialAnimationSpeed;
+        animator.SetTrigger(Dying);
+        Destroy(transform.parent.gameObject,2.34f);
     }
 
 
@@ -122,6 +128,7 @@ public class PlayerAnimationStateMachine : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         _isAttacking = false;
         _isRunning = true;
+        playerMovement.SetSpeed(_initialPlayerSpeed);
         animator.SetBool(Attacking, false);
         animator.SetBool(Running, true);
         ChangeState(PlayerState.Running);
@@ -130,5 +137,24 @@ public class PlayerAnimationStateMachine : MonoBehaviour
     private void ChangeState(PlayerState newState)
     {
         currentState = newState;
+    }
+
+
+    private void PlayerGotHit(bool isHit)
+    {
+        if (isHit)
+        {
+            playerMovement.SetSpeed(0);
+            ChangeState(PlayerState.Dying);
+        }
+    }
+    private void OnEnable()
+    {
+        EventManager.HitPlayer += PlayerGotHit;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.HitPlayer -= PlayerGotHit;
     }
 }

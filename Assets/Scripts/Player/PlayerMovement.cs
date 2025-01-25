@@ -13,7 +13,7 @@ namespace Player
         private float _verticalMovement;
         private Vector3Int _previousTile; 
         [SerializeField] private Tilemap tilemap;
-        [SerializeField] private int speed = 2;
+        [SerializeField] private float speed = 2;
     
         private readonly Dictionary<string, Vector3> _directions = new()
         {
@@ -107,6 +107,16 @@ namespace Player
                 return false;
             }
             return true;
+        }
+
+        public void SetSpeed(float newSpeed)
+        {
+            this.speed = newSpeed;
+        }
+
+        public float GetSpeed()
+        {
+            return speed;
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Managers
     public class EventManager : MonoBehaviour
     {
         public static Action<GameObject> HitMonster;
+        public static Action<bool> HitPlayer;
         
     }
 }

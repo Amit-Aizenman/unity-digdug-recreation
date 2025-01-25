@@ -78,7 +78,7 @@ namespace Monster
         {
             if (other.gameObject.CompareTag("Player"))
             {
-            
+                EventManager.HitPlayer?.Invoke(true);
             }
         }
 

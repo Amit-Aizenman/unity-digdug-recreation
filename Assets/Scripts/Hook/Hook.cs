@@ -11,11 +11,6 @@ namespace Hook
         private bool _isHooked = false;
         private Vector3 _direction; // Direction the hook travels
 
-        void Start()
-        {
-            Destroy(gameObject, lifetime);
-        }
-
         public void SetDirection(Vector3 newDirection)
         {
             _direction = newDirection.normalized; // Normalize to ensure consistent speed
@@ -23,7 +18,7 @@ namespace Hook
 
         void Update()
         {
-            if (!_isHooked)
+            if (!_isHooked )
             {
                 if (lifetime <= 0)
                 {
@@ -34,6 +29,10 @@ namespace Hook
                     lifetime -= Time.deltaTime;
                     transform.position += _direction * (speed * Time.deltaTime);
                 }
+            }
+            else
+            {
+                
             }
         }
 
@@ -48,6 +47,8 @@ namespace Hook
             if (other.gameObject.CompareTag("Monster"))
             {
                 Debug.Log("hit a monster");
+                _isHooked = true;
+                speed = 0;
                 EventManager.HitMonster?.Invoke(other.gameObject);
             }
         }
