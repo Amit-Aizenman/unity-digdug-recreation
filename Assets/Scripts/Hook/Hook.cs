@@ -3,7 +3,7 @@ using UnityEngine;
 public class Hook : MonoBehaviour
 {
     [SerializeField] private float speed = 10f; // Speed of the hook
-    [SerializeField] float lifetime = 3f; // Time before the hook is destroyed
+    [SerializeField] float lifetime = 0.5f; // Time before the hook is destroyed
     private Vector3 direction; // Direction the hook travels
 
     void Start()

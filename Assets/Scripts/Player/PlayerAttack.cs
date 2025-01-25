@@ -26,7 +26,7 @@ namespace Player
             {
                 // Spawn the hook
                 hook = Instantiate(hookPrefab, GetHookPosition() , Quaternion.identity);
-                animator.SetTrigger(Attack);
+                animator.SetBool("Attacking", true);
             }
             Vector3 direction = transform.right; // Assuming the player faces right (2D)
 

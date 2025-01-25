@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: noSpearRight
+  m_Name: walkLeft
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -5111717903506588929, guid: ce7a3ce065ce9c1419b71d08d5e28df0, type: 3}
+      value: {fileID: 2387154160860161554, guid: ce7a3ce065ce9c1419b71d08d5e28df0, type: 3}
     - time: 0.083333336
-      value: {fileID: -8681871231632218935, guid: ce7a3ce065ce9c1419b71d08d5e28df0, type: 3}
+      value: {fileID: 8732581388598947582, guid: ce7a3ce065ce9c1419b71d08d5e28df0, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,8 +46,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -5111717903506588929, guid: ce7a3ce065ce9c1419b71d08d5e28df0, type: 3}
-    - {fileID: -8681871231632218935, guid: ce7a3ce065ce9c1419b71d08d5e28df0, type: 3}
+    - {fileID: 2387154160860161554, guid: ce7a3ce065ce9c1419b71d08d5e28df0, type: 3}
+    - {fileID: 8732581388598947582, guid: ce7a3ce065ce9c1419b71d08d5e28df0, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -72,11 +72,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.083333336
-    functionName: StepSound
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []
