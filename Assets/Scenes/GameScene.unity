@@ -357,6 +357,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4513709134246683703, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
   m_PrefabInstance: {fileID: 1701130810}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &328801919 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3143485438796083807, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+  m_PrefabInstance: {fileID: 1701130810}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328801918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc68377e013da247ba278529ee37838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &328801920 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 4890253985537999891, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
@@ -384,6 +395,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &328801924 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8804702903519475872, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+  m_PrefabInstance: {fileID: 1701130810}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328801918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c9ccf656af4fc5acebdc815c8e5e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &455662928
 GameObject:
   m_ObjectHideFlags: 0
@@ -3558,6 +3580,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2419342903792648532, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 328801923}
+    - target: {fileID: 2419342903792648532, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: monsterHealth
+      value: 
+      objectReference: {fileID: 328801924}
+    - target: {fileID: 2419342903792648532, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
+      propertyPath: monsterMovement
+      value: 
+      objectReference: {fileID: 328801919}
     - target: {fileID: 3143485438796083807, guid: ee0bfae1b27548041be2788e280778cf, type: 3}
       propertyPath: boxCollider2D
       value: 

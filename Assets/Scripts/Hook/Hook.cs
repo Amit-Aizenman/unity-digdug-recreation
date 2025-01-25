@@ -48,7 +48,7 @@ namespace Hook
             if (other.gameObject.CompareTag("Monster"))
             {
                 Debug.Log("hit a monster");
-                EventManager.HitMonster?.Invoke(1);
+                EventManager.HitMonster?.Invoke(other.gameObject);
             }
         }
         

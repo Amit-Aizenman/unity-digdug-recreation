@@ -15,7 +15,7 @@ namespace Monster
 
         private Vector3 _currentDirection;
 
-        private readonly Vector2[] _straightDirections =
+        private readonly Vector3[] _straightDirections =
         {
             Vector3.right,
             Vector3.left,
@@ -81,20 +81,20 @@ namespace Monster
             
             }
         }
-        
-        private void OnEnable()
+
+        public Vector3 GetCurrentDirection()
         {
-            EventManager.HitMonster += Stop;
+            return _currentDirection;
         }
 
-        private void OnDisable()
+        public void SetSpeed(float speed)
         {
-            EventManager.HitMonster -= Stop;
+            this.speed = speed;
         }
 
-        private void Stop(int hit)
+        public float GetSpeed()
         {
-            speed = 0;
+            return speed;
         }
 
         /*private Vector3 FixedPlayerMovement(String wantedDirection)
