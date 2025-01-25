@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,6 +15,7 @@ public class TileManager : MonoBehaviour
         HalfFullFlip
     }
 
+    [SerializeField] TileColliderManager tileColliderManager;
     [SerializeField] private MonoBehaviour player;
     [SerializeField] private Tilemap dugTilemap;
     [SerializeField] private List<TileBase> dugTiles;
@@ -203,6 +205,7 @@ public class TileManager : MonoBehaviour
             dugTilemap.SetTransformMatrix(cellPos, rotationMatrix);
             dugTilemap.RefreshTile(cellPos);
             UpdateActiveTiles(cellPos, tile);
+            tileColliderManager.RemoveColliderForCellPosition(cellPos);
         }
     }
 

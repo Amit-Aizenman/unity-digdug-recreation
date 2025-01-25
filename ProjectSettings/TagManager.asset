@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Border
   - Hook
+  - SandTile
   layers:
   - Default
   - TransparentFX

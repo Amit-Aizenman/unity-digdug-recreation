@@ -1,46 +1,48 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TileColliderManager : MonoBehaviour
+namespace Managers
 {
-
-    [SerializeField] private Tilemap tilemap; // Your Tilemap
-    [SerializeField] private GameObject colliderPrefab; // A prefab that holds the collider
-
-    void Start()
+    public class TileColliderManager : MonoBehaviour
     {
-        SetCollidersForSpecificPositions();
-    }
 
-    // This function allows you to add colliders at specific positions in the Tilemap
-    public void SetCollidersForSpecificPositions()
-    {
-        // Define the list of positions where you want to add the colliders
-        Vector3Int[] positionsToAddColliders = new Vector3Int[]
-        {
-            new Vector3Int(2, 2, 0), // Position (2,2) in cell coordinates
-            new Vector3Int(4, 3, 0), // Position (4,3)
-            new Vector3Int(6, 5, 0), // Position (6,5)
-        };
+        [SerializeField] private Tilemap tilemap;
+        [SerializeField] private GameObject colliderPrefab;
+        private readonly Dictionary<Vector3Int, GameObject> _currentColliders = new();
 
-        foreach (Vector3Int position in positionsToAddColliders)
+        private void Start()
         {
-            // Check if a tile exists at the given position
-            TileBase tile = tilemap.GetTile(position);
-            if (tile != null) // If a tile exists at the position, create a collider
+            //putting colliders on all tilemap
+            BoundsInt bounds = tilemap.cellBounds;
+            for (int x = bounds.xMin; x < bounds.xMax; x++)
             {
-                // Convert cell position to world position
-                Vector3 worldPos = tilemap.CellToWorld(position);
-
-                // Instantiate a new collider (you can use a BoxCollider2D or any other collider)
-                GameObject colliderObject = Instantiate(colliderPrefab, worldPos, Quaternion.identity);
-
-                // Optionally, adjust the collider size (based on tile size)
-                BoxCollider2D boxCollider = colliderObject.GetComponent<BoxCollider2D>();
-                if (boxCollider != null)
+                for (int y = bounds.yMin; y < bounds.yMax; y++)
                 {
-                    boxCollider.size = tilemap.cellSize; // Match collider size to tile size
+                    Vector3Int cellPosition = new Vector3Int(x, y, 0);
+
+                    if (tilemap.HasTile(cellPosition))
+                    {
+                        SetColliderForCellPosition(cellPosition);
+                    }
                 }
+            }
+        }
+
+        public void SetColliderForCellPosition(Vector3Int position)
+        {
+            Vector3 worldPos = tilemap.GetCellCenterWorld(position);
+            GameObject colliderObject = Instantiate(colliderPrefab, worldPos, Quaternion.identity);
+            _currentColliders[position] = colliderObject;
+        }
+
+        public void RemoveColliderForCellPosition(Vector3Int position)
+        {
+            if (_currentColliders.TryGetValue(position, out GameObject colliderObject))
+            {
+                Destroy(colliderObject); // Destroy the collider GameObject
+                _currentColliders.Remove(position); // Remove from the dictionary
             }
         }
     }

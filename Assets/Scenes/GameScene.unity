@@ -119,6 +119,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &12929462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 12929464}
+  - component: {fileID: 12929463}
+  m_Layer: 0
+  m_Name: TileColliderManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &12929463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12929462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3547f950cdebbe3429deb5e14aa3d377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 455662931}
+  colliderPrefab: {fileID: 696742982795647729, guid: 725c410ae0ac6774382015c427c673a0, type: 3}
+--- !u!4 &12929464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12929462}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &54843190
 GameObject:
   m_ObjectHideFlags: 0
@@ -3500,6 +3546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a64a0f938e28974ea37385048265dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileColliderManager: {fileID: 12929463}
   player: {fileID: 1227774686176198706}
   dugTilemap: {fileID: 604253442}
   dugTiles:
@@ -3686,7 +3733,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 54843193}
+  - {fileID: 1786554362}
+  - {fileID: 12929464}
   - {fileID: 1196505368}
   - {fileID: 7723603833579344174}
   - {fileID: 1587501922}
-  - {fileID: 1786554362}
