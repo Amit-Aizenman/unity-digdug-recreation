@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Hook
@@ -24,25 +25,13 @@ namespace Hook
             transform.position += _direction * (speed * Time.deltaTime);
         }
 
-        /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        // Check if the collided object is on the target layer
-        if (((1 << collision.gameObject.layer) & collisionMask) != 0)
+
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            Debug.Log("Hook hit: " + collision.name);
-
-            // Handle collision logic (e.g., attaching or dealing damage)
-            OnHookHit(collision.gameObject);
-
-            // Destroy the hook after hitting something
-            Destroy(gameObject);
-        }
-    }*/
-
-        private void OnHookHit(GameObject target)
-        {
-            // Add custom logic here, e.g., attach the target or deal damage
-            Debug.Log("Hook hit target: " + target.name);
+            if (other.gameObject.CompareTag("SandTile"))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
