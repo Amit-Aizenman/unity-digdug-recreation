@@ -1,164 +1,261 @@
 using System.Collections;
 using Managers;
-using Player;
-using Unity.VisualScripting;
+using Monster;
 using UnityEngine;
 
-public enum PlayerState
+namespace Player
 {
-    Running,
-    Attacking,
-    Hitting,
-    Dying,
-}
-
-public class PlayerStateMachine : MonoBehaviour
-{
-    [SerializeField] private Animator animator;
-    [SerializeField] private PlayerMovement playerMovement;
-    private static readonly int Horizontal = Animator.StringToHash("horizontal");
-    private static readonly int Vertical = Animator.StringToHash("vertical");
-    private static readonly int Running = Animator.StringToHash("Running");
-    private static readonly int Attacking = Animator.StringToHash("Attacking");
-    private static readonly int Dying = Animator.StringToHash("Dying");
-    private static readonly int Hitting = Animator.StringToHash("Hitting");
-    private PlayerState currentState;
-    private float _initialPlayerSpeed;
-    private float _initialAnimationSpeed;
-    private bool _isRunning = true;
-    private bool _isAttacking = false;
-    private bool _isHitting = false;
-    private bool _isDying = false;
-
-
-    void Start()
+    public enum PlayerState
     {
-        _initialPlayerSpeed = playerMovement.GetSpeed();
-        _initialAnimationSpeed = animator.speed;
-        currentState = PlayerState.Running; // initial state
+        Running,
+        Attacking,
+        Hitting,
+        Dying,
     }
 
-    void Update()
+    public class PlayerStateMachine : MonoBehaviour
     {
-        switch (currentState)
+        private static readonly int Horizontal = Animator.StringToHash("horizontal");
+        private static readonly int Vertical = Animator.StringToHash("vertical");
+        private static readonly int Running = Animator.StringToHash("Running");
+        private static readonly int Attacking = Animator.StringToHash("Attacking");
+        private static readonly int Dying = Animator.StringToHash("Dying");
+        private static readonly int Hitting = Animator.StringToHash("Hitting");
+        private static readonly int Pushing = Animator.StringToHash("Pushing");
+    
+        [SerializeField] private Animator animator;
+        [SerializeField] private PlayerMovement playerMovement;
+        private PlayerState _currentState;
+        private float _initialPlayerSpeed;
+        private float _initialAnimationSpeed;
+        private bool IsAttacking;
+        private Coroutine _attackingCoroutine;
+    
+        //hit variables
+        [SerializeField] private float stopHitTime = 1;
+        private float _stopHitTimer;
+        [SerializeField] private float holdSpaceTime = 1;
+        private float _holdSpaceTimer;
+        [SerializeField] private float pressSpaceTime = 0.8f;
+        private float _pressSpaceTimer;
+        
+
+        void Start()
         {
-            case PlayerState.Running:
-                HandleRunningState();
-                break;
-            case PlayerState.Attacking:
-                HandleAttackingState();
-                break;
-            case PlayerState.Hitting:
-                HandleHittingState();
-                break;
-            case PlayerState.Dying:
-                HandleDyingState();
-                break;
+            _initialPlayerSpeed = playerMovement.GetSpeed();
+            _initialAnimationSpeed = animator.speed;
+            _currentState = PlayerState.Running; // initial state
         }
-    }
 
-    private void HandleRunningState()
-    {
-        //handling walking animations 
-        var horizontalMovement = Input.GetAxisRaw("Horizontal");
-        var verticalMovement = Input.GetAxisRaw("Vertical");
-        animator.SetFloat(Horizontal, horizontalMovement);
-        animator.SetFloat(Vertical, verticalMovement);
-        animator.speed = horizontalMovement != 0 || verticalMovement != 0 || 
-                         !animator.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("walk") ? _initialAnimationSpeed : 0;
-        
-        
-        if (_isDying) // todo: find out where do i change it 
+        void Update()
         {
-            _isRunning = false;
-            animator.SetBool(Running, false);
-            animator.SetBool(Dying, true);
+            if (_currentState != PlayerState.Hitting)
+            {
+            }
+            switch (_currentState)
+            {
+                case PlayerState.Running:
+                    HandleRunningState();
+                    break;
+                case PlayerState.Attacking:
+                    HandleAttackingState();
+                    break;
+                case PlayerState.Hitting:
+                    HandleHittingState();
+                    break;
+                case PlayerState.Dying:
+                    HandleDyingState();
+                    break;
+            }
+        }
+
+        private void HandleRunningState()
+        {
+            //handling walking animations 
+            playerMovement.SetSpeed(_initialPlayerSpeed);
+            var horizontalMovement = Input.GetAxisRaw("Horizontal");
+            var verticalMovement = Input.GetAxisRaw("Vertical");
+            animator.SetFloat(Horizontal, horizontalMovement);
+            animator.SetFloat(Vertical, verticalMovement);
+            animator.speed = horizontalMovement != 0 || verticalMovement != 0 || 
+                             !animator.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("walk") ? _initialAnimationSpeed : 0;
+        
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                playerMovement.SetSpeed(0);
+                animator.speed = _initialAnimationSpeed;
+                animator.SetBool(Running, false);
+                animator.SetBool(Attacking, true);
+                ChangeState(PlayerState.Attacking);
+            }
+        }
+
+        private void HandleAttackingState()
+        {
+            if (!IsAttacking)
+            {
+                IsAttacking = true;
+                _attackingCoroutine = StartCoroutine(AttackToRunning(PlayerAttack.GetAttackTime()));
+            }
+        }
+
+        private void HandleHittingState()
+        {
+            
+            if (IsAttacking)
+            {
+                IsAttacking = false;
+                StopCoroutine(_attackingCoroutine);
+            }
+
+            //if player pressing the movement arrows 
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+            {
+                animator.SetBool(Hitting, false);
+                animator.SetBool(Pushing, false);
+                animator.SetBool(Running, true);
+                EventManager.PlayerStopHitting?.Invoke(true);
+                playerMovement.SetSpeed(_initialPlayerSpeed);
+                ChangeState(PlayerState.Running);
+            }
+        
+            //didn't hit enough time 
+            else if (_stopHitTimer <= 0)
+            {
+                EventManager.PlayerStopHitting?.Invoke(true);
+                playerMovement.SetSpeed(_initialPlayerSpeed);
+                animator.SetBool(Hitting, false);
+                animator.SetBool(Pushing, false);
+                animator.SetBool(Running, true);
+                ChangeState(PlayerState.Running);
+            }
+        
+            //if player doesn't press anything
+            else if (!Input.GetKey(KeyCode.Space))
+            {
+                _stopHitTimer -= Time.deltaTime;
+                _holdSpaceTimer -= Time.deltaTime;
+                _pressSpaceTimer -= Time.deltaTime;
+            }
+        
+            //player press space and he can hit
+            else if (Input.GetKeyDown(KeyCode.Space) && _pressSpaceTimer <=0)
+            {
+                _stopHitTimer = stopHitTime;
+                _pressSpaceTimer = pressSpaceTime;
+                _holdSpaceTimer = holdSpaceTime;
+                UpdateHittingAnimation();
+            }
+        
+            //player press or hold space
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                _stopHitTimer = stopHitTime;
+                if (_holdSpaceTimer <= 0)
+                {
+                    UpdateHittingAnimation();
+                    _pressSpaceTimer = pressSpaceTime;
+                    _holdSpaceTimer = holdSpaceTime;
+                }
+                else
+                {
+                    _pressSpaceTimer -= Time.deltaTime;
+                    _holdSpaceTimer -= Time.deltaTime;
+                }
+            }
+        }
+
+        private void HandleDyingState()
+        {
             animator.speed = _initialAnimationSpeed;
+            animator.SetBool(Dying, true);
+            animator.SetBool(Running, false);
+            Destroy(transform.parent.gameObject,2.66f);
+        }
+
+
+        private IEnumerator AttackToRunning(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            playerMovement.SetSpeed(_initialPlayerSpeed);
+            animator.SetBool(Attacking, false);
+            animator.SetBool(Running, true);
+            ChangeState(PlayerState.Running);
+        }
+    
+        private void ChangeState(PlayerState newState)
+        {
+            _currentState = newState;
+        }
+
+
+        private void PlayerGotHit(bool isHit)
+        {
+            animator.speed = _initialAnimationSpeed;
+            playerMovement.SetSpeed(0);
+            ResetAnimationBooleans();
+            animator.SetBool(Dying, true);
             ChangeState(PlayerState.Dying);
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            playerMovement.SetSpeed(0);
-            animator.speed = _initialAnimationSpeed;
-            _isRunning = false;
-            _isAttacking = true;
-            animator.SetBool(Running, false);
-            animator.SetBool(Attacking, true);
-            ChangeState(PlayerState.Attacking);
-        }
-    }
 
-    private void HandleAttackingState()
-    {
-        if (_isHitting)
+        private void OnEnable()
         {
-            _isAttacking = false;
-            _isHitting = true;
+            EventManager.PlayerGotHit += PlayerGotHit;
+            EventManager.HitMonster += PlayerHitMonster;
+            EventManager.MonsterKilled += PlayerKilledMonster;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.PlayerGotHit -= PlayerGotHit;
+            EventManager.HitMonster -= PlayerHitMonster;
+            EventManager.MonsterKilled -= PlayerKilledMonster;
+        }
+
+        private void PlayerHitMonster(GameObject go)
+        {
+            //initiating timers
+            _stopHitTimer = stopHitTime;
+            _pressSpaceTimer = pressSpaceTime;
+            _holdSpaceTimer = holdSpaceTime;
+        
             animator.SetBool(Attacking, false);
             animator.SetBool(Hitting, true);
-            ChangeState(PlayerState.Hitting);
-        }
-        else
-        {
-            StartCoroutine(AttackToRunning(1));
-        }
-    }
-
-    private void HandleHittingState()
-    {
         
-    }
-
-    private void HandleDyingState()
-    {
-        animator.speed = _initialAnimationSpeed;
-        animator.SetBool(Dying, true);
-        animator.SetBool(Running, false);
-        Destroy(transform.parent.gameObject,2.66f);
-    }
-
-
-    private IEnumerator AttackToRunning(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        _isAttacking = false;
-        _isRunning = true;
-        playerMovement.SetSpeed(_initialPlayerSpeed);
-        animator.SetBool(Attacking, false);
-        animator.SetBool(Running, true);
-        ChangeState(PlayerState.Running);
-    }
-    
-    private void ChangeState(PlayerState newState)
-    {
-        currentState = newState;
-    }
-
-
-    private void PlayerGotHit(bool isHit)
-    {
-        if (isHit)
-        {
-            playerMovement.SetSpeed(0);
-            ChangeState(PlayerState.Dying);
+            _currentState = PlayerState.Hitting;
         }
-    }
-    private void OnEnable()
-    {
-        EventManager.PlayerGotHit += PlayerGotHit;
-        EventManager.HitMonster += PlayerHitMonster;
-    }
 
-    private void OnDisable()
-    {
-        EventManager.PlayerGotHit -= PlayerGotHit;
-        EventManager.HitMonster += PlayerHitMonster;
-    }
+        private void PlayerKilledMonster(bool kill)
+        {
+            
+            EventManager.PlayerStopHitting?.Invoke(true);
+            animator.SetBool(Hitting, false);
+            animator.SetBool(Pushing, false);
+            animator.SetBool(Running, true);
+            ChangeState(PlayerState.Running);
+        }
 
-    private void PlayerHitMonster(GameObject go)
-    {
-        animator.SetBool(Attacking, false);
-        animator.SetBool(Hitting, true);
-        currentState = PlayerState.Hitting;
+        private void ResetAnimationBooleans()
+        {
+            animator.SetBool(Attacking, false);
+            animator.SetBool(Hitting, false);
+            animator.SetBool(Dying, false);
+            animator.SetBool(Running, false);
+            animator.SetBool(Pushing, false);
+        }
+
+        private void UpdateHittingAnimation()
+        {
+            if (!animator.GetBool(Pushing)) //player hitting
+            {
+                EventManager.PlayerKeepHitting?.Invoke(1);
+                animator.SetBool(Pushing, true);
+            }
+            else //player pushing
+            {   
+                animator.SetBool(Pushing, false);
+            }
+        }
+    
     }
 }

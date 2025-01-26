@@ -5,7 +5,7 @@ namespace Monster
 {
     public class MonsterHealth : MonoBehaviour
     {
-        [SerializeField] private float recoverTime;
+        [SerializeField] private float recoverTime = 1;
         private float _recoverTimer;
         private int _hits;
 
@@ -35,6 +35,7 @@ namespace Monster
             _recoverTimer = recoverTime;
             if (_hits == 4)
             {
+                EventManager.MonsterKilled?.Invoke(true);
                 Destroy(gameObject,1);
             }
         }

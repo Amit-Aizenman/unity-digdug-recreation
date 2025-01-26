@@ -11,6 +11,7 @@ namespace Player
         [SerializeField] private float hookDistanceFromPlayer;
         [SerializeField] private float maskDistanceFromHook;
         [SerializeField] private Animator animator;
+        [SerializeField] private const float AttackTime = 1f;
 
         private GameObject _hook; // To track the spawned hook
         private GameObject _hookMask;
@@ -110,6 +111,11 @@ namespace Player
                     obj.transform.rotation = Quaternion.Euler(0, 0, -90); // Rotate -90 degrees
                     break;
             }
+        }
+
+        public static float GetAttackTime()
+        {
+            return AttackTime;
         }
     }
 }

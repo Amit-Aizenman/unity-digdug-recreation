@@ -17,6 +17,7 @@ namespace Monster
         [SerializeField] private MonsterHealth monsterHealth;
         private MonsterState _currentState;
         private float _initialMonsterSpeed;
+        private bool _isHooked = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -62,18 +63,24 @@ namespace Monster
         {
             EventManager.HitMonster += ChangeStateToHit;
             EventManager.PlayerGotHit += StopMonsterMovement;
+            EventManager.PlayerKeepHitting += AddMonsterHit;
+            EventManager.PlayerStopHitting += UnhookMonster;
         }
 
         private void OnDisable()
         {
             EventManager.HitMonster -= ChangeStateToHit;
             EventManager.PlayerGotHit -= StopMonsterMovement;
+            EventManager.PlayerKeepHitting -= AddMonsterHit;
+            EventManager.PlayerStopHitting -= UnhookMonster;
+
         }
         
         private void ChangeStateToHit(GameObject hitGameObject)
         {
             if (this.gameObject.Equals(hitGameObject))
             {
+                _isHooked = true;
                 monsterHealth.AddHit();
                 monsterMovement.SetSpeed(0);
                 _currentState = MonsterState.GotHit;
@@ -86,6 +93,18 @@ namespace Monster
             {
                 monsterMovement.SetSpeed(0);
             }
+        }
+
+        private void AddMonsterHit(int hit)
+        {
+            if (_isHooked)
+            {
+                monsterHealth.AddHit();
+            }
+        }
+        private void UnhookMonster(bool stop)
+        {
+            _isHooked = false;
         }
     }
 }

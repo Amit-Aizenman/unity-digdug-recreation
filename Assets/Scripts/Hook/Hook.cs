@@ -1,5 +1,6 @@
 using System;
 using Managers;
+using Mono.Cecil;
 using UnityEngine;
 
 namespace Hook
@@ -52,6 +53,24 @@ namespace Hook
                 EventManager.HitMonster?.Invoke(other.gameObject);
             }
         }
+
+        private void DestroyHook(bool stop)
+        {
+            if (stop)
+            {
+                Destroy(gameObject);
+            }
+        }
         
+        private void OnEnable()
+        {
+            EventManager.PlayerStopHitting += DestroyHook;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.PlayerStopHitting -= DestroyHook;
+        }
+
     }
 }
