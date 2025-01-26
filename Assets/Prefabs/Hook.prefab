@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lifetime: 0.3
+  hookMaskPrefab: {fileID: 3831571137830034189, guid: 8a5d6fc452d87ad498b47fd7f8860fb6, type: 3}
 --- !u!50 &5111346476390632351
 Rigidbody2D:
   serializedVersion: 5
