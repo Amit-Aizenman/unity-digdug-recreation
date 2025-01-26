@@ -3783,6 +3783,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2144145418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2144145420}
+  - component: {fileID: 2144145419}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2144145419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144145418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5c72755664d7c478482fa25ed7b247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: walkingSound
+    clip: {fileID: 8300000, guid: a3122bf46be1a8a438ba0485f23a3ce8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    spatialBlend: 0
+    source: {fileID: 0}
+--- !u!4 &2144145420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144145418}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1227774686176198706 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7270954275668696382, guid: f3af592d5c364514bba38579b8a34901, type: 3}
@@ -3947,6 +3999,7 @@ SceneRoots:
   - {fileID: 54843193}
   - {fileID: 1786554362}
   - {fileID: 12929464}
+  - {fileID: 2144145420}
   - {fileID: 1196505368}
   - {fileID: 7723603833579344174}
   - {fileID: 1587501922}

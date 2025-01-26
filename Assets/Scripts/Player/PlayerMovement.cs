@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Managers;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -29,6 +30,7 @@ namespace Player
             _verticalMovement = Input.GetAxisRaw("Vertical");
             if (_horizontalMovement != 0)
             {
+                FindAnyObjectByType<SoundManager>().UnPause("walkingSound");
                 var movementVector = FixedPlayerMovement(_horizontalMovement > 0 ? "right" : "left");
                 if (InBounds(transform.position + movementVector * (Time.deltaTime * speed)))
                 {
@@ -37,11 +39,16 @@ namespace Player
             }
             else if (_verticalMovement != 0)
             {
+                FindAnyObjectByType<SoundManager>().UnPause("walkingSound");
                 var movementVector = FixedPlayerMovement(_verticalMovement > 0 ? "up" : "down");
                 if (InBounds(transform.position + movementVector * (Time.deltaTime * speed)))
                 {
                     transform.position += movementVector * (Time.deltaTime * speed);
                 }
+            }
+            else
+            {
+                FindAnyObjectByType<SoundManager>().Pause("walkingSound");
             }
         }
 
