@@ -1,6 +1,7 @@
 using System.Collections;
 using Managers;
 using Player;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum PlayerState
@@ -105,14 +106,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void HandleHittingState()
     {
-        animator.SetTrigger("jump");
-        //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
-        // Transition to idle after landing
-        /*if (rb.velocity.y <= 0)
-        {
-            currentState = PlayerState.Idle;
-        }*/
+        
     }
 
     private void HandleDyingState()
@@ -152,11 +146,19 @@ public class PlayerStateMachine : MonoBehaviour
     private void OnEnable()
     {
         EventManager.PlayerGotHit += PlayerGotHit;
-        
+        EventManager.HitMonster += PlayerHitMonster;
     }
 
     private void OnDisable()
     {
         EventManager.PlayerGotHit -= PlayerGotHit;
+        EventManager.HitMonster += PlayerHitMonster;
+    }
+
+    private void PlayerHitMonster(GameObject go)
+    {
+        animator.SetBool(Attacking, false);
+        animator.SetBool(Hitting, true);
+        currentState = PlayerState.Hitting;
     }
 }
