@@ -58,6 +58,7 @@ namespace Hook
         {
             if (stop)
             {
+                Debug.Log("destroying hook");
                 Destroy(gameObject);
             }
         }

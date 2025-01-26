@@ -35,6 +35,7 @@ namespace Monster
             _recoverTimer = recoverTime;
             if (_hits == 4)
             {
+                Debug.Log("monsterGot Killed");
                 EventManager.MonsterKilled?.Invoke(true);
                 Destroy(gameObject,1);
             }
