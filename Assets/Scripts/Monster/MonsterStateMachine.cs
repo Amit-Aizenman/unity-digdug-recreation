@@ -61,13 +61,13 @@ namespace Monster
         private void OnEnable()
         {
             EventManager.HitMonster += ChangeStateToHit;
-            EventManager.PlayerDead += StopMonsterMovement;
+            EventManager.PlayerGotHit += StopMonsterMovement;
         }
 
         private void OnDisable()
         {
             EventManager.HitMonster -= ChangeStateToHit;
-            EventManager.PlayerDead -= StopMonsterMovement;
+            EventManager.PlayerGotHit -= StopMonsterMovement;
         }
         
         private void ChangeStateToHit(GameObject hitGameObject)

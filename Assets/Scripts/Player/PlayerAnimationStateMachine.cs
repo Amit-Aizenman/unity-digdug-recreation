@@ -117,11 +117,10 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void HandleDyingState()
     {
-        EventManager.PlayerDead?.Invoke(true);
         animator.speed = _initialAnimationSpeed;
         animator.SetBool(Dying, true);
         animator.SetBool(Running, false);
-        Destroy(transform.parent.gameObject,2.34f);
+        Destroy(transform.parent.gameObject,2.66f);
     }
 
 
@@ -152,11 +151,12 @@ public class PlayerStateMachine : MonoBehaviour
     }
     private void OnEnable()
     {
-        EventManager.HitPlayer += PlayerGotHit;
+        EventManager.PlayerGotHit += PlayerGotHit;
+        
     }
 
     private void OnDisable()
     {
-        EventManager.HitPlayer -= PlayerGotHit;
+        EventManager.PlayerGotHit -= PlayerGotHit;
     }
 }

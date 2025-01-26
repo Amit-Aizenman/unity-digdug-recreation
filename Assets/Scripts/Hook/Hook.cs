@@ -18,7 +18,7 @@ namespace Hook
 
         void Update()
         {
-            if (!_isHooked )
+            if (!_isHooked)
             {
                 if (lifetime <= 0)
                 {
