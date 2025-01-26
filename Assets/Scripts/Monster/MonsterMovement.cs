@@ -40,7 +40,8 @@ namespace Monster
 
         private bool IsColliding(Vector3 direction)
         {
-            RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxCollider2D.size, 0f, direction, 0.1f, obstacleLayer);
+            RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxCollider2D.size, 0f, direction,
+                tilemap.cellSize.x / 2, obstacleLayer);
 
             return hit.collider != null;
         }
@@ -57,8 +58,9 @@ namespace Monster
                 }
             }
 
-            _currentDirection = availableDirections.Count > 0 ?
-                availableDirections[Random.Range(0, availableDirections.Count)] : Vector2.zero;
+            _currentDirection = availableDirections.Count > 0
+                ? availableDirections[Random.Range(0, availableDirections.Count)]
+                : Vector2.zero;
         }
 
         private Vector3 GetRandomDirection()
@@ -97,7 +99,8 @@ namespace Monster
             return speed;
         }
 
-        /*private Vector3 FixedPlayerMovement(String wantedDirection)
+        /*
+        private Vector3 FixedPlayerMovement( Vector3 wantedDirection)
     {
         var currentCellPos = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
         if (currentCellPos == transform.position)
@@ -123,6 +126,7 @@ namespace Monster
             return _directions[wantedDirection];
         }
         return _directions[direction];
-    }*/
+    }#2#
+    }#1#*/
     }
 }

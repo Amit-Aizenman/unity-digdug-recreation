@@ -61,11 +61,13 @@ namespace Monster
         private void OnEnable()
         {
             EventManager.HitMonster += ChangeStateToHit;
+            EventManager.PlayerDead += StopMonsterMovement;
         }
 
         private void OnDisable()
         {
             EventManager.HitMonster -= ChangeStateToHit;
+            EventManager.PlayerDead -= StopMonsterMovement;
         }
         
         private void ChangeStateToHit(GameObject hitGameObject)
@@ -75,6 +77,14 @@ namespace Monster
                 monsterHealth.AddHit();
                 monsterMovement.SetSpeed(0);
                 _currentState = MonsterState.GotHit;
+            }
+        }
+
+        private void StopMonsterMovement(bool stop)
+        {
+            if (stop)
+            {
+                monsterMovement.SetSpeed(0);
             }
         }
     }

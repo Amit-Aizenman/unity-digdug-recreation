@@ -117,8 +117,10 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void HandleDyingState()
     {
+        EventManager.PlayerDead?.Invoke(true);
         animator.speed = _initialAnimationSpeed;
-        animator.SetTrigger(Dying);
+        animator.SetBool(Dying, true);
+        animator.SetBool(Running, false);
         Destroy(transform.parent.gameObject,2.34f);
     }
 
