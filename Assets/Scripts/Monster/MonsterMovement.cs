@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Managers;
 using UnityEngine;
@@ -80,6 +81,7 @@ namespace Monster
         {
             if (other.gameObject.CompareTag("Player"))
             {
+                StartCoroutine(PlayGotHitSound());
                 EventManager.PlayerGotHit?.Invoke(true);
             }
         }
@@ -99,34 +101,13 @@ namespace Monster
             return speed;
         }
 
-        /*
-        private Vector3 FixedPlayerMovement( Vector3 wantedDirection)
-    {
-        var currentCellPos = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
-        if (currentCellPos == transform.position)
+        private IEnumerator PlayGotHitSound()
         {
-            direction = wantedDirection;
-            return _directions[wantedDirection];
+            FindAnyObjectByType<SoundManager>().Play("hitWithMonster");
+            yield return new WaitForSeconds(FindAnyObjectByType<SoundManager>().getSoundClip("hitWithMonster").length);
+            FindAnyObjectByType<SoundManager>().Play("lifeLost");
+            
         }
 
-        if (wantedDirection.Equals("right") || wantedDirection.Equals("left"))
-        {
-            if (math.abs(transform.position.y - currentCellPos.y) < 0.1f)
-            {
-                transform.position = new Vector3(transform.position.x, currentCellPos.y,transform.position.z);
-                direction = wantedDirection;
-                return _directions[wantedDirection];
-            }
-            return _directions[direction];
-        }
-        if (math.abs(transform.position.x - currentCellPos.x) < 0.1f)
-        {
-            transform.position = new Vector3(currentCellPos.x, transform.position.y,transform.position.z);
-            direction = wantedDirection;
-            return _directions[wantedDirection];
-        }
-        return _directions[direction];
-    }#2#
-    }#1#*/
     }
 }

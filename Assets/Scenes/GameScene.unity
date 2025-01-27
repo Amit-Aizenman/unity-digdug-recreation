@@ -3820,6 +3820,20 @@ MonoBehaviour:
     loop: 1
     spatialBlend: 0
     source: {fileID: 0}
+  - name: lifeLost
+    clip: {fileID: 8300000, guid: 4de5179e8dce114418b3432d0fae5c04, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    source: {fileID: 0}
+  - name: hitWithMonster
+    clip: {fileID: 8300000, guid: f8e015ae461a4124094499dad5c12cb5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    source: {fileID: 0}
 --- !u!4 &2144145420
 Transform:
   m_ObjectHideFlags: 0

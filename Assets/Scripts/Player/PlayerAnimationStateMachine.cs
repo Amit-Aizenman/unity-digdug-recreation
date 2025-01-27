@@ -1,6 +1,5 @@
 using System.Collections;
 using Managers;
-using Monster;
 using UnityEngine;
 
 namespace Player
@@ -28,7 +27,7 @@ namespace Player
         private PlayerState _currentState;
         private float _initialPlayerSpeed;
         private float _initialAnimationSpeed;
-        private bool IsAttacking;
+        private bool _isAttacking;
         private Coroutine _attackingCoroutine;
     
         //hit variables
@@ -92,9 +91,9 @@ namespace Player
 
         private void HandleAttackingState()
         {
-            if (!IsAttacking)
+            if (!_isAttacking)
             {
-                IsAttacking = true;
+                _isAttacking = true;
                 _attackingCoroutine = StartCoroutine(AttackToRunning(PlayerAttack.GetAttackTime()));
             }
         }
@@ -102,9 +101,9 @@ namespace Player
         private void HandleHittingState()
         {
             
-            if (IsAttacking)
+            if (_isAttacking)
             {
-                IsAttacking = false;
+                _isAttacking = false;
                 StopCoroutine(_attackingCoroutine);
             }
 

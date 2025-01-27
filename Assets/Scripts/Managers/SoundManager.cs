@@ -39,7 +39,7 @@ namespace Managers
 
         public void Play(string soundName)
         {
-
+            Debug.Log(soundName);
             Sound s = Array.Find(sounds, sound => sound.name == soundName);
             s.source.Play();
         }
@@ -54,6 +54,12 @@ namespace Managers
         {
             Sound s = Array.Find(sounds, sound => sound.name == soundName);
             s.source.UnPause();
+        }
+
+        public AudioClip getSoundClip(string soundName)
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == soundName);
+            return s.clip;
         }
     }
 }
