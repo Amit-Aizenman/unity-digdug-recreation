@@ -1,4 +1,3 @@
-using System;
 using Managers;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -14,7 +13,7 @@ namespace Monster.GhostMode
         private float _passedRange;
         private Vector3 _initialPos;
         private Vector3 _targetPos;
-        private Vector3Int[] _directions =
+        private readonly Vector3Int[] _directions =
         {
             Vector3Int.left,  // Left
             Vector3Int.right, // Right

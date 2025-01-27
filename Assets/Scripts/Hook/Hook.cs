@@ -42,7 +42,7 @@ namespace Hook
 
             }
 
-            if (other.gameObject.CompareTag("Monster"))
+            if (other.gameObject.CompareTag("Pooka"))
             {
                 Debug.Log("hit a monster");
                 _isHooked = true;

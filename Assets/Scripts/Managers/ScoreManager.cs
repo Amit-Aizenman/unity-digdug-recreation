@@ -1,16 +1,21 @@
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+namespace Managers
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class ScoreManager : MonoBehaviour
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+        private int _score;
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
         
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+        
+        }
     }
 }
