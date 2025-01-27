@@ -6,8 +6,9 @@ TagManager:
   tags:
   - Hook
   - SandTile
-  - Monster
   - HookMask
+  - Pooka
+  - PookaGhost
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Walkable
   - Hook
   - SandColliders
-  - 
+  - DugTiles
   - 
   - 
   - 

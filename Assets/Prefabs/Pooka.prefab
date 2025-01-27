@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 2419342903792648532}
   - component: {fileID: -2076310230962574678}
   m_Layer: 0
-  m_Name: Pooga
-  m_TagString: Monster
+  m_Name: Pooka
+  m_TagString: Pooka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

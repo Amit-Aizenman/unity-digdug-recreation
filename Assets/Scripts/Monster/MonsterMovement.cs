@@ -35,6 +35,7 @@ namespace Monster
 
             if (IsColliding(_currentDirection))
             {
+                MonsterStateManager.Instance.RollStateDice(this.gameObject);
                 ChooseNewDirection();
             }
         }
