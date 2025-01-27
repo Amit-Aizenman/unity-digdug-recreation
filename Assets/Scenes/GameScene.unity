@@ -235,6 +235,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 328801918}
     - target: {fileID: 4754539960633691507, guid: 589eb1ccbba95744e8743ab0c60f42ce, type: 3}
+      propertyPath: objectToFollow
+      value: 
+      objectReference: {fileID: 1308105340}
+    - target: {fileID: 4754539960633691507, guid: 589eb1ccbba95744e8743ab0c60f42ce, type: 3}
       propertyPath: playerToFollow
       value: 
       objectReference: {fileID: 1308105340}
@@ -3625,6 +3629,10 @@ PrefabInstance:
       propertyPath: dugTileMap
       value: 
       objectReference: {fileID: 604253442}
+    - target: {fileID: 4754539960633691507, guid: 589eb1ccbba95744e8743ab0c60f42ce, type: 3}
+      propertyPath: objectToFollow
+      value: 
+      objectReference: {fileID: 1308105340}
     - target: {fileID: 4754539960633691507, guid: 589eb1ccbba95744e8743ab0c60f42ce, type: 3}
       propertyPath: playerToFollow
       value: 

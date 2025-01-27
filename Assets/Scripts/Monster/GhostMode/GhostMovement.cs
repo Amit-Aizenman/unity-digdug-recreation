@@ -8,7 +8,7 @@ namespace Monster.GhostMode
     public class GhostMovement : MonoBehaviour
     {
         [SerializeField] private Tilemap dugTileMap;
-        [SerializeField] private GameObject playerToFollow;
+        [SerializeField] private GameObject objectToFollow;
         [SerializeField] private float speed = 3f;
         [SerializeField] private float minRangeToGhost = 2f;
         private float _passedRange;
@@ -31,7 +31,7 @@ namespace Monster.GhostMode
         {
             if (_passedRange > 0)
             {
-                FollowPlayer();
+                FollowObject();
             }
             else
             {
@@ -42,17 +42,23 @@ namespace Monster.GhostMode
                 }
                 else
                 {
-                    FollowPlayer();
+                    FollowObject();
                 }
             }
         }
 
-        private void FollowPlayer()
+        private void FollowObject()
         {
-            var directionToPlayer = (playerToFollow.transform.position - transform.position).normalized;
-            transform.position += directionToPlayer * (speed * Time.deltaTime);
-            UpdatePassedRange();
-            
+            if (Vector3.Distance(transform.position, objectToFollow.transform.position) < 0.3f)
+            {
+                MoveToCell(objectToFollow.transform.position);
+            }
+            else
+            {
+                var directionToObject = (objectToFollow.transform.position - transform.position).normalized;
+                transform.position += directionToObject * (speed * Time.deltaTime);
+                UpdatePassedRange();
+            }
         }
 
         private Vector3 CheckAdjacentCells()
