@@ -26,7 +26,6 @@ namespace Player
 
         void Update()
         {
-            Debug.Log("Player position is: "  +transform.position);
             _horizontalMovement = Input.GetAxisRaw("Horizontal");
             _verticalMovement = Input.GetAxisRaw("Vertical");
             if (_horizontalMovement != 0)

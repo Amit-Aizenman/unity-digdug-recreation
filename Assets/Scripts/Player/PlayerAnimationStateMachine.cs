@@ -50,7 +50,7 @@ namespace Player
             _initialAnimationSpeed = animator.speed;
             _initialPosition = transform.position;
             Debug.Log("initial position is: " + _initialPosition);
-            _currentState = PlayerState.Running; // initial state
+            _currentState = PlayerState.Starting; // initial state
         }
 
         void Update()
@@ -80,7 +80,6 @@ namespace Player
 
         private void HandleStartingState()
         {
-            throw new System.NotImplementedException();
         }
 
         private void HandleRunningState()
@@ -225,6 +224,7 @@ namespace Player
             EventManager.PlayerGotHit += PlayerGotHit;
             EventManager.HitMonster += PlayerHitMonster;
             EventManager.MonsterKilled += PlayerKilledMonster;
+            //EventManager.FinishGameStart 
         }
 
         private void OnDisable()

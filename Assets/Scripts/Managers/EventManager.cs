@@ -13,6 +13,8 @@ namespace Managers
         public static Action<bool> GameOver;
         public static Action<bool> InitiatePlayerRespawn;
         public static Action<bool> FinishRespawn;
+        public static Action<bool> GameStart;
+        public static Action<bool> FinishGameStart;
 
     }
 }
