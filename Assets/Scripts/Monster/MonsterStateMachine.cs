@@ -19,19 +19,21 @@ namespace Monster
         [SerializeField] private MonsterHealth monsterHealth;
         private MonsterState _currentState;
         private float _initialMonsterSpeed;
+        private float _initialAnimationSpeed;
         private Vector3 _initialMonsterPosition;
         private bool _isHooked;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        private void Start()
         {
-            _currentState = MonsterState.Running;
+            _currentState = MonsterState.Starting;
             _initialMonsterSpeed = monsterMovement.GetSpeed();
             _initialMonsterPosition = transform.position;
+            _initialAnimationSpeed = animator.speed;
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             switch (_currentState)
             {
@@ -49,6 +51,8 @@ namespace Monster
 
         private void HandleStartingState()
         {
+            animator.speed = 0;
+            Debug.Log("monster animoatr spped is: " + animator.speed);
         }
 
         private void HandleRunningState()
@@ -137,6 +141,7 @@ namespace Monster
         
         private void ChangeToRunning(bool obj)
         {
+            animator.speed = _initialAnimationSpeed;
             _currentState = MonsterState.Running;
         }
     }

@@ -52,7 +52,6 @@ namespace Managers
                     player.transform.position += new Vector3(-1, 0, 0) * (Time.deltaTime * _playerSpeed);
                     if (Math.Abs(player.transform.position.x - _initialPlayerPosition.x) > 0.05)
                     {
-                        Debug.Log("the player passed the starting position");
                         PlayStartingMusic();
                     }
                 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ namespace Managers
         [SerializeField] private GameObject digitPrefab; // Prefab for displaying each digit
         [SerializeField] private Transform scoreContainer; // Parent object to hold digit images
         public static ScoreManager Instance;
+        private bool _gameStarted;
 
         private void Awake()
         {
@@ -56,8 +58,26 @@ namespace Managers
 
         public void AddScore(int amount)
         {
-            _score += amount; // Update the score
-            UpdateScoreDisplay(); // Refresh the display
+            if (_gameStarted)
+            {
+                _score += amount; // Update the score
+                UpdateScoreDisplay(); // Refresh the display
+            }
+        }
+
+        private void OnEnable()
+        {
+            EventManager.FinishGameStart += GameStartFinish;
+        }
+        
+        private void OnDisable()
+        {
+            EventManager.FinishGameStart -= GameStartFinish;
+        }
+
+        private void GameStartFinish(bool obj)
+        {
+            _gameStarted = true;
         }
     }
 }
