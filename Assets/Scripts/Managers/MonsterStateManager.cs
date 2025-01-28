@@ -6,13 +6,15 @@ namespace Managers
 {
     public class MonsterStateManager : MonoBehaviour
     {
-        [SerializeField] private GameObject[] monsters;
-        [SerializeField] private GameObject[] ghostMonsters;
+        private GameObject[] _monsters;
+        private GameObject[] _ghostMonsters;
         public static MonsterStateManager Instance;
 
         private void Start()
         {
-            foreach (var ghostMonster in ghostMonsters)
+            _monsters = GameObject.FindGameObjectsWithTag("Pooka");
+            _ghostMonsters = GameObject.FindGameObjectsWithTag("PookaGhost");
+            foreach (var ghostMonster in _ghostMonsters)
             {
                 ghostMonster.gameObject.SetActive(false);
             }
@@ -47,23 +49,23 @@ namespace Managers
         }
         private void ChangeMonsterState(GameObject monster)
         {
-            int index = Array.IndexOf(monsters, monster);
+            int index = Array.IndexOf(_monsters, monster);
             if (index != -1)
             {
-                Vector3 monsterPos = monsters[index].transform.position;
-                monsters[index].SetActive(false);
-                ghostMonsters[index].SetActive(true);
-                ghostMonsters[index].transform.position = monsterPos;
+                Vector3 monsterPos = _monsters[index].transform.position;
+                _monsters[index].SetActive(false);
+                _ghostMonsters[index].SetActive(true);
+                _ghostMonsters[index].transform.position = monsterPos;
             }
             else
             {
-                index = Array.IndexOf(ghostMonsters, monster);
+                index = Array.IndexOf(_ghostMonsters, monster);
                 if (index != -1)
                 {
-                    Vector3 ghostMonsterPos = ghostMonsters[index].transform.position;
-                    ghostMonsters[index].SetActive(false);
-                    monsters[index].SetActive(true);
-                    monsters[index].transform.position = ghostMonsterPos;
+                    Vector3 ghostMonsterPos = _ghostMonsters[index].transform.position;
+                    _ghostMonsters[index].SetActive(false);
+                    _monsters[index].SetActive(true);
+                    _monsters[index].transform.position = ghostMonsterPos;
                 }
             }
         }

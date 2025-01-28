@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1844388538342061667}
   m_Layer: 0
   m_Name: GhostPooka
-  m_TagString: Untagged
+  m_TagString: PookaGhost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197271104626917835}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.852, y: 0.509, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.99, y: -0.95, z: 0}
   m_LocalScale: {x: 0.365, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103,8 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dugTileMap: {fileID: 0}
   objectToFollow: {fileID: 0}
-  speed: 3
-  minRangeToGhost: 15
+  speed: 1
+  minRangeToGhost: 4
 --- !u!95 &1844388538342061667
 Animator:
   serializedVersion: 7

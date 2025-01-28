@@ -16,7 +16,8 @@ namespace Managers
         public static Action<bool> GameStart;
         public static Action<bool> FinishGameStart;
         public static Action<bool> FinishLevel;
-        
+        public static Action<bool> RockStoppedFalling;
+
 
     }
 }

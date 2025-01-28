@@ -15,6 +15,7 @@ namespace Monster
         [SerializeField] private BoxCollider2D boxCollider2D;
         [SerializeField] private LayerMask obstacleLayer;
         private bool _gameStarted;
+        private bool _hitByRock;
 
         private Vector3 _currentDirection;
 
@@ -37,7 +38,7 @@ namespace Monster
             {
                 transform.position += _currentDirection * (Time.deltaTime * speed);
 
-                if (IsColliding(_currentDirection))
+                if (IsColliding(_currentDirection) && !_hitByRock)
                 {
                     MonsterStateManager.Instance.RollStateDice(this.gameObject);
                     ChooseNewDirection();
@@ -128,6 +129,11 @@ namespace Monster
         private void ChangeStartFlag(bool obj)
         {
             _gameStarted = true;
+        }
+
+        public void ChangeRockFlag()
+        {
+            _hitByRock = true;
         }
     }
 }

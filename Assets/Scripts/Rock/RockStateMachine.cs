@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Managers;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.XR;
@@ -23,7 +24,7 @@ namespace Rock
         private static readonly int StartFalling = Animator.StringToHash("StartFalling");
         private static readonly int Falling = Animator.StringToHash("Falling");
         private static readonly int Breaking = Animator.StringToHash("Breaking");
-        [SerializeField] private float rockSpeed = 3;
+        public static float RockSpeed = 5;
         private float _currentSpeed = 0;
         [SerializeField] private float waitTimeToFall = 1.5f;
         [SerializeField] private float wigglingTime = 1.5f;
@@ -86,7 +87,7 @@ namespace Rock
         {
             if (!_collided)
             {
-                transform.position += Vector3.down * (Time.deltaTime * rockSpeed);
+                transform.position += Vector3.down * (Time.deltaTime * RockSpeed);
                 if (!sandTilemap.HasTile(sandTilemap.WorldToCell(transform.position)))
                 {
                     _collided = true;
@@ -102,6 +103,7 @@ namespace Rock
 
         private void HandleBreakingState()
         {
+            EventManager.RockStoppedFalling?.Invoke(true);
             Destroy(gameObject,1.5f);
         }
 
