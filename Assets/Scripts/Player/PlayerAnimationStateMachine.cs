@@ -6,6 +6,7 @@ namespace Player
 {
     public enum PlayerState
     {
+        Starting,
         Running,
         Attacking,
         Hitting,
@@ -59,6 +60,9 @@ namespace Player
             }
             switch (_currentState)
             {
+                case PlayerState.Starting:
+                    HandleStartingState();
+                    break;
                 case PlayerState.Running:
                     HandleRunningState();
                     break;
@@ -72,6 +76,11 @@ namespace Player
                     HandleDyingState();
                     break;
             }
+        }
+
+        private void HandleStartingState()
+        {
+            throw new System.NotImplementedException();
         }
 
         private void HandleRunningState()
