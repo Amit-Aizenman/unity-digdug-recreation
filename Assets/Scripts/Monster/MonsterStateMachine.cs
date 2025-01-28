@@ -52,7 +52,6 @@ namespace Monster
         private void HandleStartingState()
         {
             animator.speed = 0;
-            Debug.Log("monster animoatr spped is: " + animator.speed);
         }
 
         private void HandleRunningState()

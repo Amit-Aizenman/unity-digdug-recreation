@@ -19,6 +19,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] private MonoBehaviour player;
     [SerializeField] private Tilemap dugTilemap;
     [SerializeField] private List<TileBase> dugTiles;
+    private readonly int _upperTileBound = 2;
     private readonly Dictionary<Vector3Int, (int, int)> _activeTiles = new();
     private readonly Dictionary<string, int> _moveValues = new()
     {
@@ -32,12 +33,11 @@ public class TileManager : MonoBehaviour
     {
         Vector3Int cellPos = ToTilePos(position);
         (int, int) newTile; // first int is the index in dugTiles list and second int is the angle of the tile
-        if (!_activeTiles.ContainsKey(cellPos)) //if no tile in position
+        if (!_activeTiles.ContainsKey(cellPos) && cellPos.y < _upperTileBound) //if no tile in position
         {
-            
+            ScoreManager.Instance.AddScore(10);
             newTile = MatchTile(preDirection, currDirection, beforeCenter);
             PlaceTile(cellPos, newTile);
-            ScoreManager.Instance.AddScore(10);
             return;
         }
         var existingTile = _activeTiles[cellPos];
@@ -200,6 +200,7 @@ public class TileManager : MonoBehaviour
 
     private void PlaceTile(Vector3Int cellPos, (int, int) tile)
     {
+        Debug.Log("putting tile in: " + cellPos);
         if (!_activeTiles.ContainsKey(cellPos) || _activeTiles[cellPos] != tile)
         {
             dugTilemap.SetTile(cellPos, dugTiles[tile.Item1]);
