@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using Player;
 using UnityEditor.Searcher;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 namespace Managers
@@ -23,6 +25,7 @@ namespace Managers
         private float _initialAnimatorSpeed;
         private bool _startedWalking;
         private Vector3 _initialPlayerPosition;
+        private int _monstersCounter;
         
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -30,7 +33,10 @@ namespace Managers
             EventManager.GameStart?.Invoke(true);
             _initialAnimatorSpeed = animator.speed;
             _initialPlayerPosition = player.transform.position;
+            initializeNumberOfMonsters();
         }
+
+       
 
         // Update is called once per frame
         void Update()
@@ -104,16 +110,54 @@ namespace Managers
         private void OnEnable()
         {
             EventManager.FinishGameStart += ChangeFinishFlag;
+            EventManager.MonsterKilled += CheckMonsterCount;
         }
 
         private void OnDisable()
         {
             EventManager.FinishGameStart -= ChangeFinishFlag;
+            EventManager.MonsterKilled -= CheckMonsterCount;
+
+        }
+
+        private void CheckMonsterCount(bool obj)
+        {
+            _monstersCounter--;
+            if (_monstersCounter == 0)
+            {
+                EventManager.FinishLevel?.Invoke(true);
+                EndLevel();
+            }
+        }
+
+        private void EndLevel()
+        {
+            FindAnyObjectByType<SoundManager>().Play("stageClear");
+            StartCoroutine(FinishLevel(3.2f));
         }
 
         private void ChangeFinishFlag(bool obj)
         {
             _finishStarting = true;
+        }
+        
+        private IEnumerator FinishLevel (float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            SceneManager.LoadSceneAsync((SceneManager.GetActiveScene().buildIndex + 1)%3);
+        }
+        
+        private void initializeNumberOfMonsters()
+        {
+            var pookaArray = GameObject.FindGameObjectsWithTag("Pooka");
+            foreach (var pooka in pookaArray)
+            {
+                if (pooka.activeInHierarchy)
+                {
+                    
+                    _monstersCounter++;
+                }
+            }
         }
 
         

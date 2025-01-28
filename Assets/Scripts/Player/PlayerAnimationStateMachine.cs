@@ -48,7 +48,6 @@ namespace Player
         {
             _initialPlayerSpeed = playerMovement.GetSpeed();
             _initialAnimationSpeed = animator.speed;
-            _initialPosition = transform.position;
             _currentState = PlayerState.Starting; // initial state
         }
 
@@ -237,6 +236,7 @@ namespace Player
 
         private void StartingLevel(bool obj)
         {
+            _initialPosition = transform.position;
             ChangeState(PlayerState.Running);
         }
 

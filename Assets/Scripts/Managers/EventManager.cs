@@ -15,6 +15,8 @@ namespace Managers
         public static Action<bool> FinishRespawn;
         public static Action<bool> GameStart;
         public static Action<bool> FinishGameStart;
+        public static Action<bool> FinishLevel;
+        
 
     }
 }

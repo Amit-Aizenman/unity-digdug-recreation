@@ -4930,6 +4930,13 @@ MonoBehaviour:
     loop: 0
     spatialBlend: 0
     source: {fileID: 0}
+  - name: stageClear
+    clip: {fileID: 8300000, guid: 50c0b2aa953a1f54eadd289cae9189ef, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    source: {fileID: 0}
 --- !u!4 &2144145420
 Transform:
   m_ObjectHideFlags: 0
