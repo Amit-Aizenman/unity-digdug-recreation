@@ -55,6 +55,7 @@ namespace Managers
                 animator.SetFloat(Horizontal, -1);
                 if (Math.Abs(player.transform.position.x - tilemap.GetCellCenterWorld(_leftTile).x) > 0.1)
                 {
+                    PlayerMovement.SetDirection("left");
                     player.transform.position += new Vector3(-1, 0, 0) * (Time.deltaTime * _playerSpeed);
                     if (Math.Abs(player.transform.position.x - _initialPlayerPosition.x) > 0.05)
                     {
@@ -73,6 +74,7 @@ namespace Managers
                 animator.SetFloat(Vertical, -1);
                 if (Math.Abs(player.transform.position.y - tilemap.GetCellCenterWorld(_downTile).y) > 0.1)
                 {
+                    PlayerMovement.SetDirection("down");
                     player.transform.position += new Vector3(0, -1, 0) * (Time.deltaTime * _playerSpeed);
                 }
                 else
@@ -80,6 +82,7 @@ namespace Managers
                     player.transform.position = tilemap.GetCellCenterWorld(_downTile);
                     animator.SetFloat(Horizontal, 1);
                     animator.SetFloat(Vertical, 0);
+                    PlayerMovement.SetDirection("right");
                     animator.speed = 0;
                     if (!_startedCoroutine)
                     {

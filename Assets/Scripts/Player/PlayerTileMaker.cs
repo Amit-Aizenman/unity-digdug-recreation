@@ -11,8 +11,8 @@ public class PlayerTileMaker : MonoBehaviour
     [SerializeField] private List<TileBase> dugTiles;
     [SerializeField] private float playerOffset;
     [SerializeField] private TileManager tileManager;
-    private string _previousDirection = "right";
-    private string _currentDirection = "right";
+    private string _previousDirection = "left";
+    private string _currentDirection = "left";
     private Dictionary<Vector3Int, (string, float)> _dugTileDictionary = new();
     private static Vector3Int _previousTile;
     private static Vector3Int _currentTile;

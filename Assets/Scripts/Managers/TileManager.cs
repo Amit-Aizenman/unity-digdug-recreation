@@ -35,6 +35,7 @@ public class TileManager : MonoBehaviour
         (int, int) newTile; // first int is the index in dugTiles list and second int is the angle of the tile
         if (!_activeTiles.ContainsKey(cellPos) && cellPos.y < _upperTileBound) //if no tile in position
         {
+            Debug.Log("new tile at: " +cellPos);
             ScoreManager.Instance.AddScore(10);
             newTile = MatchTile(preDirection, currDirection, beforeCenter);
             PlaceTile(cellPos, newTile);
