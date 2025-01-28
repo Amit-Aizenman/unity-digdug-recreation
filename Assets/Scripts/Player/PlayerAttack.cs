@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 
 namespace Player
@@ -33,6 +34,7 @@ namespace Player
                 _hookMask = Instantiate(hookMaskPrefab, GetHookMaskPosition(), Quaternion.identity);
                 SetRotation(_hook);
                 SetRotation(_hookMask);
+                FindAnyObjectByType<SoundManager>().Play("attacking");
             }
 
             Vector3 direction = GetHookDirection(); // Assuming the player faces right (2D)

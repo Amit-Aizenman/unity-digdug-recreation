@@ -33,6 +33,7 @@ namespace Monster
         {
             _hits++;
             _recoverTimer = recoverTime;
+            FindAnyObjectByType<SoundManager>().Play("monsterHurt");
             if (_hits == 4)
             {
                 EventManager.MonsterKilled?.Invoke(true);

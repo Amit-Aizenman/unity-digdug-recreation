@@ -33,9 +33,9 @@ namespace Player
         //hit variables
         [SerializeField] private float stopHitTime = 1;
         private float _stopHitTimer;
-        [SerializeField] private float holdSpaceTime = 1;
+        [SerializeField] private float holdSpaceTime = 0.8f;
         private float _holdSpaceTimer;
-        [SerializeField] private float pressSpaceTime = 0.8f;
+        [SerializeField] private float pressSpaceTime = 0.6f;
         private float _pressSpaceTimer;
         
 
