@@ -3247,9 +3247,9 @@ TextureImporter:
       name: sprites_122
       rect:
         serializedVersion: 2
-        x: 121
+        x: 120
         y: 17
-        width: 6
+        width: 7
         height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

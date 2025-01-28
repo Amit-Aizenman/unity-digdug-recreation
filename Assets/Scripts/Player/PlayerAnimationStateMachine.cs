@@ -232,6 +232,8 @@ namespace Player
             animator.SetBool(Pushing, false);
             animator.SetBool(Running, true);
             ChangeState(PlayerState.Running);
+            
+            ScoreManager.Instance.AddScore(100);
         }
 
         private void ResetAnimationBooleans()
