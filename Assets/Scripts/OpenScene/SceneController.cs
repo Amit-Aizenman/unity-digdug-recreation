@@ -14,7 +14,7 @@ public class SceneController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadSceneAsync((SceneManager.GetActiveScene().buildIndex + 1)%3);
         }
     }
 }
