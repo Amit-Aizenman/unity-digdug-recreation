@@ -15,7 +15,7 @@ namespace Player
         private Vector3Int _previousTile; 
         [SerializeField] private Tilemap tilemap;
         [SerializeField] private float speed = 2;
-        private bool _finishStarting = false;
+        private bool canMove = false;
     
         private readonly Dictionary<string, Vector3> _directions = new()
         {
@@ -27,7 +27,7 @@ namespace Player
 
         void Update()
         {
-            if (_finishStarting)
+            if (canMove)
             {
                 _horizontalMovement = Input.GetAxisRaw("Horizontal");
                 _verticalMovement = Input.GetAxisRaw("Vertical");
@@ -137,17 +137,19 @@ namespace Player
 
         private void OnEnable()
         {
-            EventManager.FinishGameStart += ChangeStartFlag;
+            EventManager.FinishGameStart += ChangeMoveFlag;
+            EventManager.FinishLevel += ChangeMoveFlag;
         }
         
         private void OnDisable()
         {
-            EventManager.FinishGameStart -= ChangeStartFlag;
+            EventManager.FinishGameStart -= ChangeMoveFlag;
+            EventManager.FinishLevel -= ChangeMoveFlag;
         }
 
-        private void ChangeStartFlag(bool obj)
+        private void ChangeMoveFlag(bool obj)
         {
-            _finishStarting = true;
+            canMove = !canMove;
         }
     }
 }

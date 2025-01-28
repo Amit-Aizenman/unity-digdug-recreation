@@ -33,7 +33,7 @@ namespace Managers
             EventManager.GameStart?.Invoke(true);
             _initialAnimatorSpeed = animator.speed;
             _initialPlayerPosition = player.transform.position;
-            initializeNumberOfMonsters();
+            InitializeNumberOfMonsters();
         }
 
        
@@ -147,7 +147,7 @@ namespace Managers
             SceneManager.LoadSceneAsync((SceneManager.GetActiveScene().buildIndex + 1)%3);
         }
         
-        private void initializeNumberOfMonsters()
+        private void InitializeNumberOfMonsters()
         {
             var pookaArray = GameObject.FindGameObjectsWithTag("Pooka");
             foreach (var pooka in pookaArray)

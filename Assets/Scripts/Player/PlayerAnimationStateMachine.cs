@@ -7,6 +7,7 @@ namespace Player
     public enum PlayerState
     {
         Starting,
+        Finishing,
         Running,
         Attacking,
         Hitting,
@@ -73,7 +74,15 @@ namespace Player
                 case PlayerState.Dying:
                     HandleDyingState();
                     break;
+                case PlayerState.Finishing:
+                    HandleFinishingState();
+                    break;
             }
+        }
+
+        private void HandleFinishingState()
+        {
+            animator.speed = 0;
         }
 
         private void HandleStartingState()
@@ -223,6 +232,7 @@ namespace Player
             EventManager.HitMonster += PlayerHitMonster;
             EventManager.MonsterKilled += PlayerKilledMonster;
             EventManager.FinishGameStart += StartingLevel;
+            EventManager.FinishLevel += ChangeToFinishingState;
         }
 
         private void OnDisable()
@@ -231,7 +241,12 @@ namespace Player
             EventManager.HitMonster -= PlayerHitMonster;
             EventManager.MonsterKilled -= PlayerKilledMonster;
             EventManager.FinishGameStart -= StartingLevel;
+            EventManager.FinishLevel -= ChangeToFinishingState;
+        }
 
+        private void ChangeToFinishingState(bool obj)
+        {
+            ChangeState(PlayerState.Finishing);
         }
 
         private void StartingLevel(bool obj)
@@ -303,6 +318,7 @@ namespace Player
             EventManager.FinishRespawn?.Invoke(true);
             
         }
+        
         
         
     
