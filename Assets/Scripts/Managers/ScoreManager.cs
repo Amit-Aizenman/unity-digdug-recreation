@@ -6,7 +6,7 @@ namespace Managers
     public class ScoreManager : MonoBehaviour
     {
 
-        private int score = 0; // Current score
+        private int _score; // Current score
         [SerializeField] private Sprite[] numberSprites; // Array of sprites for digits (0-9)
         [SerializeField] private GameObject digitPrefab; // Prefab for displaying each digit
         [SerializeField] private Transform scoreContainer; // Parent object to hold digit images
@@ -39,7 +39,7 @@ namespace Managers
             }
 
             // Convert the score to a string (e.g., 123 -> "123")
-            string scoreString = score == 0? "00" : score.ToString();
+            string scoreString = _score == 0? "00" : _score.ToString();
 
             // Loop through each digit in the string and create corresponding digit objects
             foreach (char digitChar in scoreString)
@@ -56,7 +56,7 @@ namespace Managers
 
         public void AddScore(int amount)
         {
-            score += amount; // Update the score
+            _score += amount; // Update the score
             UpdateScoreDisplay(); // Refresh the display
         }
     }
