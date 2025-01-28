@@ -15,6 +15,7 @@ namespace Player
         private Vector3Int _previousTile; 
         [SerializeField] private Tilemap tilemap;
         [SerializeField] private float speed = 2;
+        private bool _finishStarting = false;
     
         private readonly Dictionary<string, Vector3> _directions = new()
         {
@@ -26,35 +27,33 @@ namespace Player
 
         void Update()
         {
-            _horizontalMovement = Input.GetAxisRaw("Horizontal");
-            _verticalMovement = Input.GetAxisRaw("Vertical");
-            if (_horizontalMovement != 0)
+            if (_finishStarting)
             {
-                FindAnyObjectByType<SoundManager>().UnPause("walkingSound");
-                var movementVector = FixedPlayerMovement(_horizontalMovement > 0 ? "right" : "left");
-                if (InBounds(transform.position + movementVector * (Time.deltaTime * speed)))
+                _horizontalMovement = Input.GetAxisRaw("Horizontal");
+                _verticalMovement = Input.GetAxisRaw("Vertical");
+                if (_horizontalMovement != 0)
                 {
-                    transform.position += movementVector * (Time.deltaTime * speed);
+                    FindAnyObjectByType<SoundManager>().UnPause("walkingSound");
+                    var movementVector = FixedPlayerMovement(_horizontalMovement > 0 ? "right" : "left");
+                    if (InBounds(transform.position + movementVector * (Time.deltaTime * speed)))
+                    {
+                        transform.position += movementVector * (Time.deltaTime * speed);
+                    }
+                }
+                else if (_verticalMovement != 0)
+                {
+                    FindAnyObjectByType<SoundManager>().UnPause("walkingSound");
+                    var movementVector = FixedPlayerMovement(_verticalMovement > 0 ? "up" : "down");
+                    if (InBounds(transform.position + movementVector * (Time.deltaTime * speed)))
+                    {
+                        transform.position += movementVector * (Time.deltaTime * speed);
+                    }
+                }
+                else
+                {
+                    FindAnyObjectByType<SoundManager>().Pause("walkingSound");
                 }
             }
-            else if (_verticalMovement != 0)
-            {
-                FindAnyObjectByType<SoundManager>().UnPause("walkingSound");
-                var movementVector = FixedPlayerMovement(_verticalMovement > 0 ? "up" : "down");
-                if (InBounds(transform.position + movementVector * (Time.deltaTime * speed)))
-                {
-                    transform.position += movementVector * (Time.deltaTime * speed);
-                }
-            }
-            else
-            {
-                FindAnyObjectByType<SoundManager>().Pause("walkingSound");
-            }
-        }
-
-        public void StepSound()
-        {
-            //todo
         }
 
         private Vector3 FixedPlayerMovement(String wantedDirection)
@@ -134,6 +133,21 @@ namespace Player
         public void SetPosition(Vector3 pos)
         {
             transform.position = pos;
+        }
+
+        private void OnEnable()
+        {
+            EventManager.FinishGameStart += ChangeStartFlag;
+        }
+        
+        private void OnDisable()
+        {
+            EventManager.FinishGameStart -= ChangeStartFlag;
+        }
+
+        private void ChangeStartFlag(bool obj)
+        {
+            _finishStarting = true;
         }
     }
 }

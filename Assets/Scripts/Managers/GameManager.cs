@@ -52,6 +52,7 @@ namespace Managers
                     player.transform.position += new Vector3(-1, 0, 0) * (Time.deltaTime * _playerSpeed);
                     if (Math.Abs(player.transform.position.x - _initialPlayerPosition.x) > 0.05)
                     {
+                        Debug.Log("the player passed the starting position");
                         PlayStartingMusic();
                     }
                 }
@@ -96,7 +97,6 @@ namespace Managers
         private IEnumerator StopStart (float seconds)
         {
             yield return new WaitForSeconds(seconds);
-            Debug.Log("Game Start Finished");
             animator.SetFloat(Horizontal, 0);
             animator.speed = _initialAnimatorSpeed;
             EventManager.FinishGameStart?.Invoke(true);

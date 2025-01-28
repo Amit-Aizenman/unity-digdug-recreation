@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Managers;
@@ -13,6 +14,7 @@ namespace Monster
         [SerializeField] private float speed = 2f;
         [SerializeField] private BoxCollider2D boxCollider2D;
         [SerializeField] private LayerMask obstacleLayer;
+        private bool _gameStarted;
 
         private Vector3 _currentDirection;
 
@@ -31,12 +33,15 @@ namespace Monster
 
         void Update()
         {
-            transform.position += _currentDirection * (Time.deltaTime * speed);
-
-            if (IsColliding(_currentDirection))
+            if (_gameStarted)
             {
-                MonsterStateManager.Instance.RollStateDice(this.gameObject);
-                ChooseNewDirection();
+                transform.position += _currentDirection * (Time.deltaTime * speed);
+
+                if (IsColliding(_currentDirection))
+                {
+                    MonsterStateManager.Instance.RollStateDice(this.gameObject);
+                    ChooseNewDirection();
+                }
             }
         }
 
@@ -110,5 +115,19 @@ namespace Monster
             
         }
 
+        private void OnEnable()
+        {
+            EventManager.FinishGameStart += ChangeStartFlag;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.FinishGameStart -= ChangeStartFlag;
+        }
+
+        private void ChangeStartFlag(bool obj)
+        {
+            _gameStarted = true;
+        }
     }
 }

@@ -35,6 +35,7 @@ namespace Managers
         void Start()
         {
             Play("walkingSound");
+            Pause("walkingSound");
         }
 
         public void Play(string soundName)

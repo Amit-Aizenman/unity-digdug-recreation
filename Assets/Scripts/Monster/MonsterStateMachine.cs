@@ -4,7 +4,8 @@ using UnityEngine;
 namespace Monster
 {
     public enum MonsterState
-    {
+    {   
+        Starting,
         Running,
         GotHit
     }
@@ -40,7 +41,14 @@ namespace Monster
                 case MonsterState.GotHit:
                     HandleGotHitState();
                     break;
+                case MonsterState.Starting:
+                    HandleStartingState();
+                    break;
             }
+        }
+
+        private void HandleStartingState()
+        {
         }
 
         private void HandleRunningState()
@@ -70,6 +78,7 @@ namespace Monster
             EventManager.PlayerStopHitting += UnhookMonster;
             EventManager.InitiatePlayerRespawn += RestartMonsterPos;
             EventManager.FinishRespawn += RestartMonsterSpeed;
+            EventManager.FinishGameStart += ChangeToRunning;
         }
 
         private void OnDisable()
@@ -80,6 +89,7 @@ namespace Monster
             EventManager.PlayerStopHitting -= UnhookMonster;
             EventManager.InitiatePlayerRespawn -= RestartMonsterPos;
             EventManager.FinishRespawn -= RestartMonsterSpeed;
+            EventManager.FinishGameStart -= ChangeToRunning;
 
         }
 
@@ -123,6 +133,11 @@ namespace Monster
         private void RestartMonsterSpeed(bool restart)
         { 
             monsterMovement.SetSpeed(_initialMonsterSpeed);
+        }
+        
+        private void ChangeToRunning(bool obj)
+        {
+            _currentState = MonsterState.Running;
         }
     }
 }

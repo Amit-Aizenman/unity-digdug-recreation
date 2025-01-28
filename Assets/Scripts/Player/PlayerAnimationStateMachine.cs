@@ -49,7 +49,6 @@ namespace Player
             _initialPlayerSpeed = playerMovement.GetSpeed();
             _initialAnimationSpeed = animator.speed;
             _initialPosition = transform.position;
-            Debug.Log("initial position is: " + _initialPosition);
             _currentState = PlayerState.Starting; // initial state
         }
 
@@ -224,7 +223,7 @@ namespace Player
             EventManager.PlayerGotHit += PlayerGotHit;
             EventManager.HitMonster += PlayerHitMonster;
             EventManager.MonsterKilled += PlayerKilledMonster;
-            //EventManager.FinishGameStart 
+            EventManager.FinishGameStart += StartingLevel;
         }
 
         private void OnDisable()
@@ -232,6 +231,13 @@ namespace Player
             EventManager.PlayerGotHit -= PlayerGotHit;
             EventManager.HitMonster -= PlayerHitMonster;
             EventManager.MonsterKilled -= PlayerKilledMonster;
+            EventManager.FinishGameStart -= StartingLevel;
+
+        }
+
+        private void StartingLevel(bool obj)
+        {
+            ChangeState(PlayerState.Running);
         }
 
         private void PlayerHitMonster(GameObject go)
