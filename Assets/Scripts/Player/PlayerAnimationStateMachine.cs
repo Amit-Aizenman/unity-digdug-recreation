@@ -54,9 +54,6 @@ namespace Player
 
         void Update()
         {
-            if (_currentState != PlayerState.Hitting)
-            {
-            }
             switch (_currentState)
             {
                 case PlayerState.Starting:
