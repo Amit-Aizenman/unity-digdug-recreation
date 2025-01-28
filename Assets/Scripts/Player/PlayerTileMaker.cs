@@ -35,14 +35,7 @@ public class PlayerTileMaker : MonoBehaviour
     private void Update()
     {
         UpdateTileHistory();
-        /*_currentDirection = PlayerMovement.GetDirection();
-        for (int i = 0; i < dugTilemaps.Count; i++)
-        {
-            TileLogic(i);
-        }*/
         _currentDirection = PlayerMovement.GetDirection();
-       // Debug.Log("Setting Tile with - position: " + transform.position + ", pre: "+ _previousDirection +
-            //      ", curr: " + _currentDirection + ", playerbefore: " + PlayerBeforeTileCenter());
         tileManager.SetTile(transform.position, _previousDirection, _currentDirection, PlayerBeforeTileCenter());
         _previousDirection = _currentDirection;
     }

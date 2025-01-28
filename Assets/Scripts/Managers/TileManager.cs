@@ -40,150 +40,168 @@ public class TileManager : MonoBehaviour
             PlaceTile(cellPos, newTile);
             return;
         }
-        var existingTile = _activeTiles[cellPos];
-        if (existingTile.Item1 == (int)TileNames.Black) // if "black" tile in position
-            return;
-        newTile = MatchTile(preDirection, currDirection, beforeCenter);
-        if (newTile == existingTile) // if same tile 
-            return;
-        if (existingTile.Item1 == (int)TileNames.HalfTile)
+
+        if (cellPos.y < _upperTileBound)
         {
-            newTile = HalfLogic(existingTile, newTile);
-            PlaceTile(cellPos, newTile);
-            return;
-        }
-        if (existingTile.Item1 == (int)TileNames.FullTile)
-        {
-            newTile = FullLogic(existingTile, newTile);
-            PlaceTile(cellPos, newTile);
-            return;
-        }
-        if (existingTile.Item1 == (int)TileNames.CornerTile)
-        {
-            if (newTile.Item1 == (int)TileNames.HalfTile || newTile.Item1 == (int)TileNames.FullTile)
+            var existingTile = _activeTiles[cellPos];
+            if (existingTile.Item1 == (int)TileNames.Black) // if "black" tile in position
+                return;
+            newTile = MatchTile(preDirection, currDirection, beforeCenter);
+            if (newTile == existingTile) // if same tile 
+                return;
+            if (existingTile.Item1 == (int)TileNames.HalfTile)
             {
-                Vector3 centerPos = dugTilemap.GetCellCenterLocal(cellPos);
-                if (existingTile.Item2 == 0)
+                newTile = HalfLogic(existingTile, newTile);
+                PlaceTile(cellPos, newTile);
+                return;
+            }
+
+            if (existingTile.Item1 == (int)TileNames.FullTile)
+            {
+                newTile = FullLogic(existingTile, newTile);
+                PlaceTile(cellPos, newTile);
+                return;
+            }
+
+            if (existingTile.Item1 == (int)TileNames.CornerTile)
+            {
+                if (newTile.Item1 == (int)TileNames.HalfTile || newTile.Item1 == (int)TileNames.FullTile)
                 {
-                    if (position.x > centerPos.x)
+                    Vector3 centerPos = dugTilemap.GetCellCenterLocal(cellPos);
+                    if (existingTile.Item2 == 0)
                     {
-                        PlaceTile(cellPos, MatchHalfFull("down"));
-                        return;
+                        if (position.x > centerPos.x)
+                        {
+                            PlaceTile(cellPos, MatchHalfFull("down"));
+                            return;
+                        }
+
+                        if (position.y > centerPos.y)
+                        {
+                            PlaceTile(cellPos, MatchHalfFull("left"));
+                            return;
+                        }
                     }
 
-                    if (position.y > centerPos.y)
+                    if (existingTile.Item2 == 90)
                     {
-                        PlaceTile(cellPos, MatchHalfFull("left"));
-                        return;
-                    }
-                }
-                if (existingTile.Item2 == 90)
-                {
-                    if (position.x > centerPos.x)
-                    {
-                        PlaceTile(cellPos, MatchHalfFull("up"));
-                        return;
+                        if (position.x > centerPos.x)
+                        {
+                            PlaceTile(cellPos, MatchHalfFull("up"));
+                            return;
+                        }
+
+                        if (position.y < centerPos.y)
+                        {
+                            PlaceTile(cellPos, MatchHalfFull("left"));
+                            return;
+                        }
                     }
 
-                    if (position.y < centerPos.y)
+                    if (existingTile.Item2 == 180)
                     {
-                        PlaceTile(cellPos, MatchHalfFull("left"));
-                        return;
-                    }
-                }
-                if (existingTile.Item2 == 180)
-                {
-                    if (position.x < centerPos.x)
-                    {
-                        PlaceTile(cellPos, MatchHalfFull("up"));
-                        return;
+                        if (position.x < centerPos.x)
+                        {
+                            PlaceTile(cellPos, MatchHalfFull("up"));
+                            return;
+                        }
+
+                        if (position.y < centerPos.y)
+                        {
+                            PlaceTile(cellPos, MatchHalfFull("right"));
+                            return;
+                        }
                     }
 
-                    if (position.y < centerPos.y)
+                    if (existingTile.Item2 == 270)
                     {
-                        PlaceTile(cellPos, MatchHalfFull("right"));
-                        return;
-                    }
-                }
-                if (existingTile.Item2 == 270)
-                {
-                    if (position.x < centerPos.x)
-                    {
-                        PlaceTile(cellPos, MatchHalfFull("up"));
-                        return;
-                    }
+                        if (position.x < centerPos.x)
+                        {
+                            PlaceTile(cellPos, MatchHalfFull("up"));
+                            return;
+                        }
 
-                    if (position.y > centerPos.y)
-                    {
-                        PlaceTile(cellPos, MatchHalfFull("right"));
-                        return;
+                        if (position.y > centerPos.y)
+                        {
+                            PlaceTile(cellPos, MatchHalfFull("right"));
+                            return;
+                        }
                     }
                 }
+                else if (newTile.Item1 == (int)TileNames.FullTile)
+                {
+
+                }
+
+                newTile = CornerLogic(existingTile, newTile);
+                PlaceTile(cellPos, newTile);
+                return;
             }
-            else if (newTile.Item1 == (int)TileNames.FullTile)
+
+            if (existingTile.Item1 == (int)TileNames.HalfFull)
             {
-                
+                if (newTile.Item1 == 1)
+                {
+                    if (existingTile.Item2 == 0)
+                    {
+                        if (position.x < dugTilemap.GetCellCenterLocal(cellPos).x)
+                        {
+                            PlaceTile(cellPos, ((int)TileNames.Black, 0));
+                            return;
+                        }
+
+                        PlaceTile(cellPos, existingTile);
+                        return;
+                    }
+                    else
+                    {
+                        if (position.y > dugTilemap.GetCellCenterLocal(cellPos).y)
+                        {
+                            PlaceTile(cellPos, ((int)TileNames.Black, 0));
+                            return;
+                        }
+
+                        PlaceTile(cellPos, existingTile);
+                        return;
+                    }
+                }
+
+                newTile = HalfFullLogic(existingTile, newTile);
+                PlaceTile(cellPos, newTile);
+                return;
             }
-            newTile = CornerLogic(existingTile, newTile);
-            PlaceTile(cellPos, newTile);
-            return;
-        }
-        if (existingTile.Item1 == (int)TileNames.HalfFull)
-        {
-            if (newTile.Item1 == 1)
+
+            if (existingTile.Item1 == (int)TileNames.HalfFullFlip)
             {
-                if (existingTile.Item2 == 0)
+                if (newTile.Item1 == 1)
                 {
-                    if (position.x < dugTilemap.GetCellCenterLocal(cellPos).x)
+                    if (existingTile.Item2 == 0)
                     {
-                        PlaceTile(cellPos, ((int)TileNames.Black,0));
+                        if (position.x > dugTilemap.GetCellCenterLocal(cellPos).x)
+                        {
+                            PlaceTile(cellPos, ((int)TileNames.Black, 0));
+                            return;
+                        }
+
+                        PlaceTile(cellPos, existingTile);
                         return;
                     }
-                    PlaceTile(cellPos, existingTile);
-                    return;
-                }
-                else
-                {
-                    if (position.y > dugTilemap.GetCellCenterLocal(cellPos).y)
+                    else
                     {
-                        PlaceTile(cellPos, ((int)TileNames.Black,0));
+                        if (position.y < dugTilemap.GetCellCenterLocal(cellPos).y)
+                        {
+                            PlaceTile(cellPos, ((int)TileNames.Black, 0));
+                            return;
+                        }
+
+                        PlaceTile(cellPos, existingTile);
                         return;
                     }
-                    PlaceTile(cellPos, existingTile);
-                    return;
                 }
+
+                newTile = HalfFullFlipLogic(existingTile, newTile);
+                PlaceTile(cellPos, newTile);
             }
-            newTile = HalfFullLogic(existingTile, newTile);
-            PlaceTile(cellPos, newTile);
-            return;
-        }
-        if (existingTile.Item1 == (int)TileNames.HalfFullFlip)
-        {
-            if (newTile.Item1 == 1)
-            {
-                if (existingTile.Item2 == 0)
-                {
-                    if (position.x > dugTilemap.GetCellCenterLocal(cellPos).x)
-                    {
-                        PlaceTile(cellPos, ((int)TileNames.Black,0));
-                        return;
-                    }
-                    PlaceTile(cellPos, existingTile);
-                    return;
-                }
-                else
-                {
-                    if (position.y < dugTilemap.GetCellCenterLocal(cellPos).y)
-                    {
-                        PlaceTile(cellPos, ((int)TileNames.Black,0));
-                        return;
-                    }
-                    PlaceTile(cellPos, existingTile);
-                    return;
-                }
-            }
-            newTile = HalfFullFlipLogic(existingTile, newTile);
-            PlaceTile(cellPos, newTile);
         }
 
     }
@@ -200,7 +218,6 @@ public class TileManager : MonoBehaviour
 
     private void PlaceTile(Vector3Int cellPos, (int, int) tile)
     {
-        Debug.Log("putting tile in: " + cellPos);
         if (!_activeTiles.ContainsKey(cellPos) || _activeTiles[cellPos] != tile)
         {
             dugTilemap.SetTile(cellPos, dugTiles[tile.Item1]);
