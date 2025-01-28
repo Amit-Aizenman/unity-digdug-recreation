@@ -24,11 +24,15 @@ namespace Player
     
         [SerializeField] private Animator animator;
         [SerializeField] private PlayerMovement playerMovement;
+        [SerializeField] private int playerHealth = 2;
         private PlayerState _currentState;
         private float _initialPlayerSpeed;
         private float _initialAnimationSpeed;
+        private Vector3 _initialPosition;
         private bool _isAttacking;
         private Coroutine _attackingCoroutine;
+        private bool _isRestarting;
+        
     
         //hit variables
         [SerializeField] private float stopHitTime = 1;
@@ -43,6 +47,8 @@ namespace Player
         {
             _initialPlayerSpeed = playerMovement.GetSpeed();
             _initialAnimationSpeed = animator.speed;
+            _initialPosition = transform.position;
+            Debug.Log("initial position is: " + _initialPosition);
             _currentState = PlayerState.Running; // initial state
         }
 
@@ -71,13 +77,13 @@ namespace Player
         private void HandleRunningState()
         {
             //handling walking animations 
-            playerMovement.SetSpeed(_initialPlayerSpeed);
             var horizontalMovement = Input.GetAxisRaw("Horizontal");
             var verticalMovement = Input.GetAxisRaw("Vertical");
             animator.SetFloat(Horizontal, horizontalMovement);
             animator.SetFloat(Vertical, verticalMovement);
-            animator.speed = horizontalMovement != 0 || verticalMovement != 0 || 
-                             !animator.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("walk") ? _initialAnimationSpeed : 0;
+            animator.speed = (horizontalMovement != 0 || verticalMovement != 0 || 
+                             !animator.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("walk")) 
+                             && playerMovement.GetSpeed() !=0 ? _initialAnimationSpeed : 0;
         
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -166,10 +172,17 @@ namespace Player
 
         private void HandleDyingState()
         {
-            animator.speed = _initialAnimationSpeed;
-            animator.SetBool(Dying, true);
-            animator.SetBool(Running, false);
-            Destroy(transform.parent.gameObject,2.66f);
+            if (playerHealth > 0 && !_isRestarting)
+            {
+                Debug.Log("RESTARTING");
+                _isRestarting = true;
+                StartCoroutine(RestartPlayer());
+            }
+            else if (playerHealth <= 0)
+            {
+                EventManager.GameOver?.Invoke(true);
+                Destroy(transform.parent.gameObject, 2.66f);
+            }
         }
 
 
@@ -194,6 +207,7 @@ namespace Player
             playerMovement.SetSpeed(0);
             ResetAnimationBooleans();
             animator.SetBool(Dying, true);
+            playerHealth--;
             ChangeState(PlayerState.Dying);
         }
 
@@ -231,6 +245,7 @@ namespace Player
             animator.SetBool(Hitting, false);
             animator.SetBool(Pushing, false);
             animator.SetBool(Running, true);
+            playerMovement.SetSpeed(_initialPlayerSpeed);
             ChangeState(PlayerState.Running);
             
             ScoreManager.Instance.AddScore(100);
@@ -257,6 +272,26 @@ namespace Player
                 animator.SetBool(Pushing, false);
             }
         }
+        
+        private IEnumerator RestartPlayer()
+        {
+            yield return new WaitForSeconds(2.66f);
+            playerMovement.SetPosition(_initialPosition);
+            animator.SetFloat(Horizontal, 1);
+            animator.SetFloat(Vertical, 0);
+            animator.SetBool(Dying, false);
+            animator.SetBool(Running, true);
+            ChangeState(PlayerState.Running);
+            EventManager.InitiatePlayerRespawn?.Invoke(true);
+            yield return new WaitForSeconds(1.5f);
+            playerMovement.SetSpeed(_initialPlayerSpeed);
+            EventManager.FinishRespawn?.Invoke(true);
+            
+        }
+        
+        
     
     }
+    
+    
 }

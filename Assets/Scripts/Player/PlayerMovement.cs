@@ -9,7 +9,7 @@ namespace Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        private static String direction = "right";
+        private static string direction = "right";
         private float _horizontalMovement;
         private float _verticalMovement;
         private Vector3Int _previousTile; 
@@ -26,6 +26,7 @@ namespace Player
 
         void Update()
         {
+            Debug.Log("Player position is: "  +transform.position);
             _horizontalMovement = Input.GetAxisRaw("Horizontal");
             _verticalMovement = Input.GetAxisRaw("Vertical");
             if (_horizontalMovement != 0)
@@ -91,6 +92,11 @@ namespace Player
 
         }
 
+        public static void SetDirection(string newDirection)
+        {
+            direction = newDirection;
+        }
+
         private bool InBounds(Vector3 pos)
         {
             if (pos.x < -5.5f)
@@ -124,6 +130,11 @@ namespace Player
         public float GetSpeed()
         {
             return speed;
+        }
+        
+        public void SetPosition(Vector3 pos)
+        {
+            transform.position = pos;
         }
     }
 }

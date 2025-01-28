@@ -8,6 +8,7 @@ namespace Monster
         Running,
         GotHit
     }
+
     public class MonsterStateMachine : MonoBehaviour
     {
         private static readonly int Hits = Animator.StringToHash("Hits");
@@ -17,13 +18,15 @@ namespace Monster
         [SerializeField] private MonsterHealth monsterHealth;
         private MonsterState _currentState;
         private float _initialMonsterSpeed;
-        private bool _isHooked = false;
+        private Vector3 _initialMonsterPosition;
+        private bool _isHooked;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             _currentState = MonsterState.Running;
             _initialMonsterSpeed = monsterMovement.GetSpeed();
+            _initialMonsterPosition = transform.position;
         }
 
         // Update is called once per frame
@@ -57,14 +60,16 @@ namespace Monster
                 _currentState = MonsterState.Running;
             }
         }
-        
-        
+
+
         private void OnEnable()
         {
             EventManager.HitMonster += ChangeStateToHit;
             EventManager.PlayerGotHit += StopMonsterMovement;
             EventManager.PlayerKeepHitting += AddMonsterHit;
             EventManager.PlayerStopHitting += UnhookMonster;
+            EventManager.InitiatePlayerRespawn += RestartMonsterPos;
+            EventManager.FinishRespawn += RestartMonsterSpeed;
         }
 
         private void OnDisable()
@@ -73,9 +78,11 @@ namespace Monster
             EventManager.PlayerGotHit -= StopMonsterMovement;
             EventManager.PlayerKeepHitting -= AddMonsterHit;
             EventManager.PlayerStopHitting -= UnhookMonster;
+            EventManager.InitiatePlayerRespawn -= RestartMonsterPos;
+            EventManager.FinishRespawn -= RestartMonsterSpeed;
 
         }
-        
+
         private void ChangeStateToHit(GameObject hitGameObject)
         {
             if (this.gameObject.Equals(hitGameObject))
@@ -102,9 +109,20 @@ namespace Monster
                 monsterHealth.AddHit();
             }
         }
+
         private void UnhookMonster(bool stop)
         {
             _isHooked = false;
+        }
+
+        private void RestartMonsterPos(bool restart)
+        {
+            transform.position = _initialMonsterPosition;
+        }
+
+        private void RestartMonsterSpeed(bool restart)
+        { 
+            monsterMovement.SetSpeed(_initialMonsterSpeed);
         }
     }
 }
