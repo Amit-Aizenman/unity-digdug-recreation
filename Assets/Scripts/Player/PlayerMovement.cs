@@ -147,7 +147,7 @@ namespace Player
             EventManager.FinishLevel -= ChangeMoveFlag;
         }
 
-        private void ChangeMoveFlag(bool obj)
+        public void ChangeMoveFlag(bool obj)
         {
             _canMove = !_canMove;
         }

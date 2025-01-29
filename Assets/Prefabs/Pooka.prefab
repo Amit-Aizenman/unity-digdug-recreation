@@ -184,6 +184,7 @@ MonoBehaviour:
   animator: {fileID: -2076310230962574678}
   monsterMovement: {fileID: 3143485438796083807}
   monsterHealth: {fileID: 8804702903519475872}
+  monsterCollider: {fileID: 4890253985537999891}
 --- !u!95 &-2076310230962574678
 Animator:
   serializedVersion: 7

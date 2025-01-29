@@ -26,7 +26,6 @@ namespace Rock
         private static readonly int Breaking = Animator.StringToHash("Breaking");
         public static float RockSpeed = 5;
         private float _currentSpeed = 0;
-        [SerializeField] private float waitTimeToFall = 1.5f;
         [SerializeField] private float wigglingTime = 1.5f;
         private bool _timeToWiggleStarted = false;
         [SerializeField] private Tilemap dugTilemap;
@@ -36,6 +35,7 @@ namespace Rock
         private bool _keepFalling = true;
         private bool _coroutineStarted;
         private bool _collided;
+        private bool _didBreakSound;
 
 
         void Start()
@@ -103,6 +103,12 @@ namespace Rock
 
         private void HandleBreakingState()
         {
+            if (!_didBreakSound)
+            {
+                Debug.Log("Doing Rock Break Sound");
+                FindAnyObjectByType<SoundManager>().Play("rockBreaking");
+                _didBreakSound = true;
+            }
             EventManager.RockStoppedFalling?.Invoke(true);
             Destroy(gameObject,1.5f);
         }
@@ -122,11 +128,14 @@ namespace Rock
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            Debug.Log("rock collided with " +other.gameObject.name);
-            
             if (other.gameObject.CompareTag("SandTile") && sandTilemap.WorldToCell(transform.position) != _initialTile)
             {
                 _collided = true;
+            }
+
+            if (other.gameObject.CompareTag("Player") && _currentState == RockState.Falling)
+            {
+                EventManager.PlayerHitByRock?.Invoke(true);
             }
         }
     }

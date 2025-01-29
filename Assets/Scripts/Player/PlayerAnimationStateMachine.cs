@@ -23,7 +23,7 @@ namespace Player
         private static readonly int Dying = Animator.StringToHash("Dying");
         private static readonly int Hitting = Animator.StringToHash("Hitting");
         private static readonly int Pushing = Animator.StringToHash("Pushing");
-    
+
         [SerializeField] private Animator animator;
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private int playerHealth = 2;
@@ -76,6 +76,7 @@ namespace Player
                     break;
             }
         }
+        
 
         private void HandleFinishingState()
         {
@@ -118,7 +119,6 @@ namespace Player
 
         private void HandleHittingState()
         {
-            
             if (_isAttacking)
             {
                 _isAttacking = false;
@@ -184,9 +184,11 @@ namespace Player
 
         private void HandleDyingState()
         {
+            Debug.Log("im dying");
+            Debug.Log("playerHealth: " + playerHealth + " isRestaring: " + _isRestarting);
             if (playerHealth > 0 && !_isRestarting)
             {
-                Debug.Log("RESTARTING");
+                Debug.Log("RESTARING");
                 _isRestarting = true;
                 StartCoroutine(RestartPlayer());
             }
@@ -307,9 +309,12 @@ namespace Player
             animator.SetFloat(Horizontal, 1);
             animator.SetFloat(Vertical, 0);
             animator.SetBool(Dying, false);
+            animator.SetBool(Attacking, false);
+            animator.SetBool(Pushing, false);
             animator.SetBool(Running, true);
-            ChangeState(PlayerState.Running);
             EventManager.InitiatePlayerRespawn?.Invoke(true);
+            animator.speed = 0;
+            ChangeState(PlayerState.Running);
             yield return new WaitForSeconds(1.5f);
             playerMovement.SetSpeed(_initialPlayerSpeed);
             EventManager.FinishRespawn?.Invoke(true);

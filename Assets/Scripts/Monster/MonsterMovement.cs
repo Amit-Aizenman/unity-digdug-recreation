@@ -16,6 +16,7 @@ namespace Monster
         [SerializeField] private LayerMask obstacleLayer;
         private bool _gameStarted;
         private bool _hitByRock;
+        private bool _hurt;
 
         private Vector3 _currentDirection;
 
@@ -86,7 +87,7 @@ namespace Monster
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag("Player") && !_hurt)
             {
                 StartCoroutine(PlayGotHitSound());
                 EventManager.PlayerGotHit?.Invoke(true);

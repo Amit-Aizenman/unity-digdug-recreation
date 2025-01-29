@@ -4489,11 +4489,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5591796909887103612, guid: b69990fa52a18a446bcb1192026c0e76, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.1522617
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 5591796909887103612, guid: b69990fa52a18a446bcb1192026c0e76, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.8388367
+      value: -6.5
       objectReference: {fileID: 0}
     - target: {fileID: 5591796909887103612, guid: b69990fa52a18a446bcb1192026c0e76, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5074,6 +5074,20 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: stageClear
     clip: {fileID: 8300000, guid: 50c0b2aa953a1f54eadd289cae9189ef, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    source: {fileID: 0}
+  - name: hitWithRock
+    clip: {fileID: 8300000, guid: 59f345ad5d9974e4d8d16059c98094d9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    source: {fileID: 0}
+  - name: rockBreaking
+    clip: {fileID: 8300000, guid: 96180ae6d51de854fafa727589ec7e83, type: 3}
     volume: 1
     pitch: 1
     loop: 0

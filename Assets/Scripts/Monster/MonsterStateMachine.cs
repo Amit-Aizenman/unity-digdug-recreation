@@ -19,6 +19,7 @@ namespace Monster
         [SerializeField] private Animator animator;
         [SerializeField] private MonsterMovement monsterMovement;
         [SerializeField] private MonsterHealth monsterHealth;
+        [SerializeField] private Collider2D monsterCollider;
         private MonsterState _currentState;
         private float _initialMonsterSpeed;
         private float _initialAnimationSpeed;
@@ -58,6 +59,7 @@ namespace Monster
 
         private void HandleHitByRockState()
         {
+            monsterCollider.enabled = false;
             monsterMovement.ChangeRockFlag();
             monsterMovement.SetSpeed(0);
             if (!_rockStopFall)
@@ -77,11 +79,13 @@ namespace Monster
 
         private void HandleStartingState()
         {
+            monsterCollider.enabled = true;
             animator.speed = 0;
         }
 
         private void HandleRunningState()
         {
+            monsterCollider.enabled = true;
             if (monsterMovement.GetCurrentDirection() == Vector3.right)
                 animator.SetBool(Direction, true);
             else if (monsterMovement.GetCurrentDirection() == Vector3.left)
@@ -90,6 +94,7 @@ namespace Monster
 
         private void HandleHitByPlayerState()
         {
+            monsterCollider.enabled = false;
             animator.SetInteger(Hits, monsterHealth.GetHits());
             if (monsterHealth.GetHits() == 0)
             {
@@ -184,6 +189,7 @@ namespace Monster
         {
             if (other.gameObject.CompareTag("Rock"))
             {
+                FindAnyObjectByType<SoundManager>().Play("hitWithRock");
                 animator.SetBool(RockHit, true);
                 _currentState = MonsterState.HitByRock;
             }
