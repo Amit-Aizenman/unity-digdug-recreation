@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 12929464}
   - component: {fileID: 12929463}
+  - component: {fileID: 12929465}
   m_Layer: 0
   m_Name: TileColliderManager
   m_TagString: Untagged
@@ -143,7 +144,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 12929462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3547f950cdebbe3429deb5e14aa3d377, type: 3}
   m_Name: 
@@ -166,6 +167,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &12929465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12929462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47388a5099e55a440a93cfc36df126b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 455662931}
+  dugTilemap: {fileID: 604253442}
+  colliderPrefabs:
+  - {fileID: 696742982795647729, guid: 18cc940d29def514aa75fc84fe39e250, type: 3}
+  - {fileID: 696742982795647729, guid: 60ab4eac26d13fc4780207fe4449e17b, type: 3}
+  - {fileID: 696742982795647729, guid: 214e61bd08665134fa5d1cdfb2220bc8, type: 3}
+  - {fileID: 696742982795647729, guid: e06a3cdea326e284a8bf666b3bf827fb, type: 3}
+  - {fileID: 696742982795647729, guid: aec04a66e244b9340b9758b73f2fba47, type: 3}
+  - {fileID: 696742982795647729, guid: f8047225343cb974086868f197af2ba9, type: 3}
+  - {fileID: 696742982795647729, guid: 725c410ae0ac6774382015c427c673a0, type: 3}
+  tileManager: {fileID: 1786554361}
 --- !u!1001 &30607143
 PrefabInstance:
   m_ObjectHideFlags: 0

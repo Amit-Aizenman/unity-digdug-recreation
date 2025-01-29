@@ -19,6 +19,7 @@ namespace Managers
         public static Action<bool> FinishLevel;
         public static Action<bool> RockStoppedFalling;
         public static Action<GameObject> MonsterHitByRock;
+        public static Action<Vector3Int> UpdateDugTile;
 
 
 

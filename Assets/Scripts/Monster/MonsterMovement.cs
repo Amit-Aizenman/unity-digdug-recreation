@@ -30,6 +30,8 @@ namespace Monster
 
         void Start()
         {
+            _hitByRock = false;
+            _hurt = false;
             _currentDirection = GetRandomDirection();
         }
 
@@ -87,7 +89,7 @@ namespace Monster
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("Player") && !_hurt)
+            if (other.gameObject.CompareTag("Player") && !_hurt && !_hitByRock)
             {
                 StartCoroutine(PlayGotHitSound());
                 EventManager.PlayerGotHit?.Invoke(true);

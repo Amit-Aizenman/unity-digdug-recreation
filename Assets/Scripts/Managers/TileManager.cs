@@ -237,7 +237,7 @@ namespace Managers
                 dugTilemap.SetTransformMatrix(cellPos, rotationMatrix);
                 dugTilemap.RefreshTile(cellPos);
                 UpdateActiveTiles(cellPos, tile);
-                tileColliderManager.RemoveColliderForCellPosition(cellPos);
+                EventManager.UpdateDugTile?.Invoke(cellPos);
             }
         }
 
@@ -266,9 +266,6 @@ namespace Managers
     
         private (int, int) HalfLogic((int, int) existingTile, (int, int) newTile)
         {
-        
-            Debug.Log("Exsiting tile is: (" + existingTile.Item1 + "," + existingTile.Item2 + ")");
-                Debug.Log("New Tile is: " + newTile.Item1 + "," + newTile.Item2 + ")");
             if (newTile.Item1 == existingTile.Item1) // if also want to put half 
             {
                 //if I'm coming from the current tile 
@@ -451,30 +448,35 @@ namespace Managers
 
         private void AddStartTiles()
         {
-            _activeTiles[new Vector3Int(3, 0)] = (0, 270);
-            _activeTiles[new Vector3Int(4, 0)] = (1, 90);
-            _activeTiles[new Vector3Int(5, 0)] = (1, 90);
-            _activeTiles[new Vector3Int(6, 0)] = (0, 90);
-            _activeTiles[new Vector3Int(-4, 0)] = (0, 0);
-            _activeTiles[new Vector3Int(-4, -1)] = (1, 0);
-            _activeTiles[new Vector3Int(-4, -2)] = (1, 0);
-            _activeTiles[new Vector3Int(-4, -3)] = (1, 0);
-            _activeTiles[new Vector3Int(-4, -4)] = (0, 180);
-            _activeTiles[new Vector3Int(-1, -5)] = (0, 270);
-            _activeTiles[new Vector3Int(0, -5)] = (1, 90);
-            _activeTiles[new Vector3Int(1, -5)] = (0, 90);
-            _activeTiles[new Vector3Int(0, -8)] = (0, 90);
-            _activeTiles[new Vector3Int(-1, -8)] = (1, 90);
-            _activeTiles[new Vector3Int(-2, -8)] = (1, 90);
-            _activeTiles[new Vector3Int(-3, -8)] = (0, 270);
-            _activeTiles[new Vector3Int(3, -7)] = (0, 0);
-            _activeTiles[new Vector3Int(3, -8)] = (1, 0);
-            _activeTiles[new Vector3Int(3, -9)] = (1, 0);
-            _activeTiles[new Vector3Int(3, -10)] = (1, 0);
-            _activeTiles[new Vector3Int(3, -11)] = (0, 180);
+            _activeTiles[new Vector3Int(3, 0, 0)] = (0, 270);
+            _activeTiles[new Vector3Int(4, 0, 0)] = (1, 90);
+            _activeTiles[new Vector3Int(5, 0, 0)] = (1, 90);
+            _activeTiles[new Vector3Int(6, 0, 0)] = (0, 90);
+            _activeTiles[new Vector3Int(-4, 0, 0)] = (0, 0);
+            _activeTiles[new Vector3Int(-4, -1, 0)] = (1, 0);
+            _activeTiles[new Vector3Int(-4, -2, 0)] = (1, 0);
+            _activeTiles[new Vector3Int(-4, -3, 0)] = (1, 0);
+            _activeTiles[new Vector3Int(-4, -4, 0)] = (0, 180);
+            _activeTiles[new Vector3Int(-1, -5, 0)] = (0, 270);
+            _activeTiles[new Vector3Int(0, -5, 0)] = (1, 90);
+            _activeTiles[new Vector3Int(1, -5, 0)] = (0, 90);
+            _activeTiles[new Vector3Int(0, -8, 0)] = (0, 90);
+            _activeTiles[new Vector3Int(-1, -8, 0)] = (1, 90);
+            _activeTiles[new Vector3Int(-2, -8, 0)] = (1, 90);
+            _activeTiles[new Vector3Int(-3, -8, 0)] = (0, 270);
+            _activeTiles[new Vector3Int(3, -7, 0)] = (0, 0);
+            _activeTiles[new Vector3Int(3, -8, 0)] = (1, 0);
+            _activeTiles[new Vector3Int(3, -9, 0)] = (1, 0);
+            _activeTiles[new Vector3Int(3, -10, 0)] = (1, 0);
+            _activeTiles[new Vector3Int(3, -11, 0)] = (0, 180);
         
 
 
+        }
+
+        public Dictionary<Vector3Int, (int, int)> GetActiveTiles()
+        {
+            return _activeTiles;
         }
     }
 }

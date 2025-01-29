@@ -12,7 +12,6 @@ namespace Player
         Attacking,
         Hitting,
         Dying,
-        HitByRock
     }
 
     public class PlayerStateMachine : MonoBehaviour
@@ -75,17 +74,8 @@ namespace Player
                 case PlayerState.Finishing:
                     HandleFinishingState();
                     break;
-                case PlayerState.HitByRock:
-                    HandleHitByRockState();
-                    break;
             }
         }
-
-        private void HandleHitByRockState()
-        {
-            throw new System.NotImplementedException();
-        }
-
 
         private void HandleFinishingState()
         {
@@ -193,8 +183,6 @@ namespace Player
 
         private void HandleDyingState()
         {
-            Debug.Log("im dying");
-            Debug.Log("playerHealth: " + playerHealth + " isRestaring: " + _isRestarting);
             if (playerHealth > 0 && !_isRestarting)
             {
                 Debug.Log("RESTARING");
@@ -203,6 +191,7 @@ namespace Player
             }
             else if (playerHealth <= 0)
             {
+                Debug.Log("game over");
                 EventManager.GameOver?.Invoke(true);
                 Destroy(transform.parent.gameObject, 2.66f);
             }
@@ -226,12 +215,12 @@ namespace Player
 
         private void PlayerGotHit(bool isHit)
         {
-            animator.speed = _initialAnimationSpeed;
-            playerMovement.SetSpeed(0);
-            ResetAnimationBooleans();
-            animator.SetBool(Dying, true);
-            playerHealth--;
-            ChangeState(PlayerState.Dying);
+                animator.speed = _initialAnimationSpeed;
+                playerMovement.SetSpeed(0);
+                ResetAnimationBooleans();
+                animator.SetBool(Dying, true);
+                playerHealth--;
+                ChangeState(PlayerState.Dying);
         }
 
         private void OnEnable()
@@ -241,7 +230,6 @@ namespace Player
             EventManager.MonsterKilled += PlayerKilledMonster;
             EventManager.FinishGameStart += StartingLevel;
             EventManager.FinishLevel += ChangeToFinishingState;
-            EventManager.PlayerHitByRock += ChangeToHitByRock;
         }
 
         private void OnDisable()
@@ -251,12 +239,6 @@ namespace Player
             EventManager.MonsterKilled -= PlayerKilledMonster;
             EventManager.FinishGameStart -= StartingLevel;
             EventManager.FinishLevel -= ChangeToFinishingState;
-            EventManager.PlayerHitByRock -= ChangeToHitByRock;
-        }
-
-        private void ChangeToHitByRock(bool obj)
-        {
-            Debug.Log("ASDKLN");
         }
 
         private void ChangeToFinishingState(bool obj)
