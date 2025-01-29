@@ -38,7 +38,7 @@ namespace Monster
             {
                 transform.position += _currentDirection * (Time.deltaTime * speed);
 
-                if (IsColliding(_currentDirection) && !_hitByRock)
+                if ((IsColliding(_currentDirection) || CloseToBound()) && !_hitByRock)
                 {
                     MonsterStateManager.Instance.RollStateDice(this.gameObject);
                     ChooseNewDirection();
@@ -113,7 +113,7 @@ namespace Monster
             FindAnyObjectByType<SoundManager>().Play("hitWithMonster");
             yield return new WaitForSeconds(FindAnyObjectByType<SoundManager>().getSoundClip("hitWithMonster").length);
             FindAnyObjectByType<SoundManager>().Play("lifeLost");
-            
+
         }
 
         private void OnEnable()
@@ -134,6 +134,12 @@ namespace Monster
         public void ChangeRockFlag()
         {
             _hitByRock = true;
+        }
+
+        private bool CloseToBound()
+        {
+            Vector3 futurePos = _currentDirection * (Time.deltaTime * speed) + transform.position;
+            return futurePos.x > 7.5 || futurePos.x < -5.5 || futurePos.y > 2.5 || futurePos.y < -11.5;
         }
     }
 }
