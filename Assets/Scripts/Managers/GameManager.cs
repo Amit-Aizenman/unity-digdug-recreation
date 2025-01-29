@@ -114,13 +114,20 @@ namespace Managers
         {
             EventManager.FinishGameStart += ChangeFinishFlag;
             EventManager.MonsterKilled += CheckMonsterCount;
+            EventManager.GameOver += EndLevel2;
         }
 
         private void OnDisable()
         {
             EventManager.FinishGameStart -= ChangeFinishFlag;
             EventManager.MonsterKilled -= CheckMonsterCount;
+            EventManager.GameOver -= EndLevel2;
 
+        }
+
+        private void EndLevel2(bool obj)
+        {
+            EndLevel();
         }
 
         private void CheckMonsterCount(bool obj)
@@ -136,7 +143,7 @@ namespace Managers
         private void EndLevel()
         {
             FindAnyObjectByType<SoundManager>().Play("stageClear");
-            StartCoroutine(FinishLevel(3.2f));
+            StartCoroutine(FinishLevel(6f));
         }
 
         private void ChangeFinishFlag(bool obj)
