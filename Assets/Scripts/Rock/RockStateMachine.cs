@@ -105,7 +105,6 @@ namespace Rock
         {
             if (!_didBreakSound)
             {
-                Debug.Log("Doing Rock Break Sound");
                 FindAnyObjectByType<SoundManager>().Play("rockBreaking");
                 _didBreakSound = true;
             }
@@ -136,6 +135,11 @@ namespace Rock
             if (other.gameObject.CompareTag("Player") && _currentState == RockState.Falling)
             {
                 EventManager.PlayerHitByRock?.Invoke(true);
+            }
+
+            if (other.gameObject.CompareTag("Pooka") && _currentState == RockState.Falling)
+            {
+                EventManager.MonsterHitByRock?.Invoke(other.gameObject);
             }
         }
     }

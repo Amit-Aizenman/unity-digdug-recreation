@@ -114,6 +114,7 @@ namespace Monster
             EventManager.FinishRespawn += RestartMonsterSpeed;
             EventManager.FinishGameStart += ChangeToRunning;
             EventManager.RockStoppedFalling += DestroyMonster;
+            EventManager.MonsterHitByRock += ChangeToHitByRockState;
         }
 
         private void OnDisable()
@@ -126,7 +127,18 @@ namespace Monster
             EventManager.FinishRespawn -= RestartMonsterSpeed;
             EventManager.FinishGameStart -= ChangeToRunning;
             EventManager.RockStoppedFalling -= DestroyMonster;
+            EventManager.MonsterHitByRock -= ChangeToHitByRockState;
 
+        }
+
+        private void ChangeToHitByRockState(GameObject obj)
+        {
+            if (this.gameObject == obj)
+            {
+                FindAnyObjectByType<SoundManager>().Play("hitWithRock");
+                animator.SetBool(RockHit, true);
+                _currentState = MonsterState.HitByRock;
+            }
         }
 
         private void DestroyMonster(bool obj)
@@ -183,16 +195,6 @@ namespace Monster
         {
             animator.speed = _initialAnimationSpeed;
             _currentState = MonsterState.Running;
-        }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.gameObject.CompareTag("Rock"))
-            {
-                FindAnyObjectByType<SoundManager>().Play("hitWithRock");
-                animator.SetBool(RockHit, true);
-                _currentState = MonsterState.HitByRock;
-            }
         }
         
         

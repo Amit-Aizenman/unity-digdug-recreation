@@ -12,6 +12,7 @@ namespace Player
         Attacking,
         Hitting,
         Dying,
+        HitByRock
     }
 
     public class PlayerStateMachine : MonoBehaviour
@@ -74,9 +75,17 @@ namespace Player
                 case PlayerState.Finishing:
                     HandleFinishingState();
                     break;
+                case PlayerState.HitByRock:
+                    HandleHitByRockState();
+                    break;
             }
         }
-        
+
+        private void HandleHitByRockState()
+        {
+            throw new System.NotImplementedException();
+        }
+
 
         private void HandleFinishingState()
         {
@@ -232,6 +241,7 @@ namespace Player
             EventManager.MonsterKilled += PlayerKilledMonster;
             EventManager.FinishGameStart += StartingLevel;
             EventManager.FinishLevel += ChangeToFinishingState;
+            EventManager.PlayerHitByRock += ChangeToHitByRock;
         }
 
         private void OnDisable()
@@ -241,6 +251,12 @@ namespace Player
             EventManager.MonsterKilled -= PlayerKilledMonster;
             EventManager.FinishGameStart -= StartingLevel;
             EventManager.FinishLevel -= ChangeToFinishingState;
+            EventManager.PlayerHitByRock -= ChangeToHitByRock;
+        }
+
+        private void ChangeToHitByRock(bool obj)
+        {
+            Debug.Log("ASDKLN");
         }
 
         private void ChangeToFinishingState(bool obj)
