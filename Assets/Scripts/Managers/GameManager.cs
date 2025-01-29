@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using Player;
-using UnityEditor.Searcher;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
