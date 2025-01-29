@@ -15,7 +15,7 @@ namespace Player
         private Vector3Int _previousTile; 
         [SerializeField] private Tilemap tilemap;
         [SerializeField] private float speed = 2;
-        private bool canMove = false;
+        private bool _canMove;
     
         private readonly Dictionary<string, Vector3> _directions = new()
         {
@@ -27,7 +27,7 @@ namespace Player
 
         void Update()
         {
-            if (canMove)
+            if (_canMove)
             {
                 _horizontalMovement = Input.GetAxisRaw("Horizontal");
                 _verticalMovement = Input.GetAxisRaw("Vertical");
@@ -149,7 +149,7 @@ namespace Player
 
         private void ChangeMoveFlag(bool obj)
         {
-            canMove = !canMove;
+            _canMove = !_canMove;
         }
     }
 }
