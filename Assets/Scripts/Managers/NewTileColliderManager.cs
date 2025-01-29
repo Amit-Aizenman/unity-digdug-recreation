@@ -101,9 +101,6 @@ namespace Managers
                     }
                     else if (dugTilemap.HasTile(cellPosition))
                     {
-                        Debug.Log("putting (" +tileManager.GetActiveTiles()[cellPosition].Item1 + "," 
-                                  + tileManager.GetActiveTiles()[cellPosition].Item2 + ") in: "
-                                  +cellPosition);
                         SetColliderForCellPosition(cellPosition,
                             tileManager.GetActiveTiles()[cellPosition].Item1,
                             tileManager.GetActiveTiles()[cellPosition].Item2);

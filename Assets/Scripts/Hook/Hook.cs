@@ -44,7 +44,6 @@ namespace Hook
 
             if (other.gameObject.CompareTag("Pooka"))
             {
-                Debug.Log("hit a monster");
                 _isHooked = true;
                 speed = 0;
                 EventManager.HitMonster?.Invoke(other.gameObject);

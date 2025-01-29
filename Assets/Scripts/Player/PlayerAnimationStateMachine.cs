@@ -185,13 +185,11 @@ namespace Player
         {
             if (playerHealth > 0 && !_isRestarting)
             {
-                Debug.Log("RESTARING");
                 _isRestarting = true;
                 StartCoroutine(RestartPlayer());
             }
             else if (playerHealth <= 0)
             {
-                Debug.Log("game over");
                 EventManager.GameOver?.Invoke(true);
                 Destroy(transform.parent.gameObject, 2.66f);
             }

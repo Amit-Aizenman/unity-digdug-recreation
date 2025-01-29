@@ -43,7 +43,6 @@ namespace Managers
             (int, int) newTile; // first int is the index in dugTiles list and second int is the angle of the tile
             if (!_activeTiles.ContainsKey(cellPos) && cellPos.y < _upperTileBound) //if no tile in position
             {
-                Debug.Log("new tile at: " +cellPos);
                 ScoreManager.Instance.AddScore(10);
                 newTile = MatchTile(preDirection, currDirection, beforeCenter);
                 PlaceTile(cellPos, newTile);
@@ -60,8 +59,6 @@ namespace Managers
                     return;
                 if (existingTile.Item1 == (int)TileNames.HalfTile)
                 {
-                    /*Debug.Log("Exsiting tile is: (" + existingTile.Item1 + "," + existingTile.Item2 + ")");
-                Debug.Log("New Tile is: " + newTile.Item1 + "," + newTile.Item2 + ")");*/
                     newTile = HalfLogic(existingTile, newTile);
                     PlaceTile(cellPos, newTile);
                     return;
@@ -76,8 +73,6 @@ namespace Managers
 
                 if (existingTile.Item1 == (int)TileNames.CornerTile)
                 {
-                    Debug.Log("Exsiting tile is: (" + existingTile.Item1 + "," + existingTile.Item2 + ")");
-                    Debug.Log("New Tile is: " + newTile.Item1 + "," + newTile.Item2 + ")");
                     if (newTile.Item1 == (int)TileNames.HalfTile || newTile.Item1 == (int)TileNames.FullTile)
                     {
                         Vector3 centerPos = dugTilemap.GetCellCenterLocal(cellPos);
@@ -280,7 +275,6 @@ namespace Managers
                 }
                 //put corner because it's tile from other direction
 
-                Debug.Log("hoals");
                 return MatchTile(GetKeyByValue(newTile.Item2),
                     GetKeyByValue((existingTile.Item2 + 180) %360), true);
             }

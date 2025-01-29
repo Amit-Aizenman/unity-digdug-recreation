@@ -71,12 +71,6 @@ public class PlayerTileMaker : MonoBehaviour
                 OtherAxisLogic(i);
             }
         }
-        else
-        {
-            /*Debug.Log("In tilemap:" + dugTilemaps[i].name +
-                      " , the tile: " + dugTilemaps[i].GetTile(dugTilemaps[i].WorldToCell(transform.position))
-                      + "is already there.");*/
-        }
     }
 
     private bool PlayerBeforeTileCenter()
