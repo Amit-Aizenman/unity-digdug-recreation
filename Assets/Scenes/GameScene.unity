@@ -5292,7 +5292,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 7723603833579344174}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308105340}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 537d7ee20fe317c449f5158ee922b44c, type: 3}
   m_Name: 
@@ -5335,11 +5335,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2475618464247517796, guid: f3af592d5c364514bba38579b8a34901, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.5
+      value: 3.08
       objectReference: {fileID: 0}
     - target: {fileID: 2475618464247517796, guid: f3af592d5c364514bba38579b8a34901, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 2.65
       objectReference: {fileID: 0}
     - target: {fileID: 2475618464247517796, guid: f3af592d5c364514bba38579b8a34901, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5377,6 +5377,10 @@ PrefabInstance:
       propertyPath: tilemap
       value: 
       objectReference: {fileID: 455662931}
+    - target: {fileID: 7270954275668696382, guid: f3af592d5c364514bba38579b8a34901, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7270954275668696382, guid: f3af592d5c364514bba38579b8a34901, type: 3}
       propertyPath: rigidbody
       value: 
@@ -5453,7 +5457,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2475618464247517796, guid: f3af592d5c364514bba38579b8a34901, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1690225612}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 504848450675265031, guid: f3af592d5c364514bba38579b8a34901, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8412678204886963585}
   m_SourcePrefab: {fileID: 100100000, guid: f3af592d5c364514bba38579b8a34901, type: 3}
 --- !u!4 &8412678204886963578 stripped
 Transform:
@@ -5470,6 +5477,21 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: -8148407034813702745, guid: f3af592d5c364514bba38579b8a34901, type: 3}
   m_PrefabInstance: {fileID: 7723603833579344174}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8412678204886963585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308105340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1990c3b52f5fc40a01ba4de81a4a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 455662931}
+  soundManager: {fileID: 2144145419}
+  speed: 2
 --- !u!1001 &9031411514080409168
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,11 +2,11 @@
 
 namespace Player.StateMachine.Concrete_States
 {
-    public class PlayerHitState : BaseState
+    public class PlayerHitState : PlayerBaseState
     {
-        public override void OnEnter(PlayerStateManager stateManager, SoundManager soundManager)
+        public override void EnterState(PlayerStateManager stateManager, SoundManager soundManager)
         {
-            base.OnEnter(stateManager, soundManager);
+            base.EnterState(stateManager, soundManager);
         }
 
         public override void UpdateState()
