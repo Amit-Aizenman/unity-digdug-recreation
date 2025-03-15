@@ -31,7 +31,7 @@ namespace Player.StateMachine.Concrete_States
             FixedMovement(directionVector);
         }
 
-        private void FixedMovement(Vector2 directionVector)
+        public void FixedMovement(Vector2 directionVector)
         {
             CheckPossibleVectors();
             if (_possibleVectors.Contains(directionVector))
